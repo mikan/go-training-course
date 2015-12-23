@@ -1,3 +1,5 @@
+// Copyright 2015-2016 mikan. All rights reserved.
+
 // Echo1 prints its command-line arguments.
 package main
 
