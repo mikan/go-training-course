@@ -7,6 +7,5 @@
     </content>
     <orderEntry type="jdk" jdkName="Go 1.5.1" jdkType="Go SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="GOPATH &lt;go-training-course&gt;" level="project" />
   </component>
 </module>
