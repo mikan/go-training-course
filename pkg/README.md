@@ -1,1 +1,3 @@
-this is package directory.
+# /pkg
+
+This is the package directory.
