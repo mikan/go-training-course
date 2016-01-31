@@ -1,9 +1,8 @@
-/.idea/libraries
-/.idea/dictionaries
-/.idea/compiler.xml
-/.idea/misc.xml
-/.idea/uiDesigner.xml
-/.idea/workspace.xml
+/.idea/*
+!/.idea/.name
+!/.idea/modules.xml
+!/.idea/encodings.xml
+!/.idea/vcs.xml
 /bin/*
 !/bin/README.md
 !/bin/goimports

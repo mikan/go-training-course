@@ -27,11 +27,7 @@ golang:
 IDE:
 
 * JetBrains IntelliJ IDEA Ultimate 15
-* または vim
-
-Build system:
-
-* (none)
+* vim
 
 ### 謝辞
 
