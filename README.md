@@ -7,7 +7,7 @@ Go Training Course
 
 #### 課題本
 
-The Go Programming Language
+[The Go Programming Language](http://www.gopl.io/)
  (著者： Alan A. A. Donovan, Brian W. Kernighan ISBN：978-0134190440)
 
 ### 実施説明
@@ -28,6 +28,11 @@ IDE:
 
 * JetBrains IntelliJ IDEA Ultimate 15
 * vim
+
+OS:
+
+* OS X 10.11
+* Windows 10 Pro 64bit
 
 ### 謝辞
 
