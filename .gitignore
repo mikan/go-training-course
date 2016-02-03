@@ -6,3 +6,4 @@
 /bin/*
 !/bin/README.md
 !/bin/goimports
+!/bin/goimports.exe
