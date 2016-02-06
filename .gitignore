@@ -1,8 +1,4 @@
-/.idea/*
-!/.idea/.name
-!/.idea/modules.xml
-!/.idea/encodings.xml
-!/.idea/vcs.xml
+/.idea
 /bin/*
 !/bin/README.md
 !/bin/goimports
