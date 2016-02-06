@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	fmt.Println("Program name is " + os.Args[0])    // Added
+	fmt.Println("Program name is " + os.Args[0]) // Added
 	var s, sep string
 	for i := 1; i < len(os.Args); i++ {
 		s += sep + os.Args[i]
