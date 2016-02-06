@@ -21,6 +21,10 @@ func BenchmarkPopCount1(b *testing.B) {
 	loop(1, 10000000, 1023, nil)
 }
 
+func BenchmarkPopCount2(b *testing.B) {
+	loop(2, 10000000, 1023, nil)
+}
+
 func BenchmarkPopCount3(b *testing.B) {
 	loop(3, 10000000, 1023, nil)
 }
@@ -29,5 +33,6 @@ func BenchmarkPopCount3(b *testing.B) {
 // >go test github.com/mikan/gopl/ch02/ex04 -bench=.
 // PASS
 // BenchmarkPopCount1-4    2000000000               0.03 ns/op
-// BenchmarkPopCount3-4           1        1630097500 ns/op
-// ok      github.com/mikan/gopl/ch02/ex04 2.679s
+// BenchmarkPopCount2-4    2000000000               0.09 ns/op
+// BenchmarkPopCount3-4           1        1632098100 ns/op
+// ok      github.com/mikan/gopl/ch02/ex04 4.590s

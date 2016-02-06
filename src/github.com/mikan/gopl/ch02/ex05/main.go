@@ -2,7 +2,6 @@
 
 package main
 
-// Depends on popcount package in the ex02
 import (
 	"fmt"
 	"time"
@@ -10,6 +9,7 @@ import (
 	"github.com/mikan/gopl/ch02/ex03/popcount"
 	"github.com/mikan/gopl/ch02/ex03/popcount2"
 	"github.com/mikan/gopl/ch02/ex04/popcount3"
+	"github.com/mikan/gopl/ch02/ex05/popcount4"
 )
 
 func main() {
@@ -17,6 +17,8 @@ func main() {
 	go loop(1, 10000000, 1023, ch)
 	go loop(2, 10000000, 1023, ch)
 	go loop(3, 10000000, 1023, ch)
+	go loop(4, 10000000, 1023, ch)
+	fmt.Println(<-ch)
 	fmt.Println(<-ch)
 	fmt.Println(<-ch)
 	fmt.Println(<-ch)
@@ -32,6 +34,8 @@ func loop(method int, count int, input uint64, ch chan<- string) {
 			popcount2.PopCount(input)
 		case 3:
 			popcount3.PopCount(input)
+		case 4:
+			popcount4.PopCount(input)
 		default:
 			panic("unknown method")
 		}
@@ -42,7 +46,8 @@ func loop(method int, count int, input uint64, ch chan<- string) {
 	}
 }
 
-// Result (popcount3 is fucking slow.):
-// [popcount1] Elapsed time: 0.06s (count = 10000000)
-// [popcount2] Elapsed time: 0.19s (count = 10000000)
-// [popcount3] Elapsed time: 1.48s (count = 10000000)
+// Result:
+// [popcount1] Elapsed time: 0.07s (count = 10000000)
+// [popcount4] Elapsed time: 0.20s (count = 10000000)
+// [popcount2] Elapsed time: 0.21s (count = 10000000)
+// [popcount3] Elapsed time: 1.59s (count = 10000000)
