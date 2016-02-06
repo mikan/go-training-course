@@ -31,7 +31,9 @@ func loop(method int, count int, input uint64, ch chan<- string) {
 		}
 	}
 	secs := time.Since(start).Seconds()
-	ch <- fmt.Sprintf("[popcount%d] Elapsed time: %.2fs (count = %d)", method, secs, count)
+	if ch != nil {
+		ch <- fmt.Sprintf("[popcount%d] Elapsed time: %.2fs (count = %d)", method, secs, count)
+	}
 }
 
 // Result (popcount2 is fucking slow.):

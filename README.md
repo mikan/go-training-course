@@ -34,6 +34,38 @@ OS:
 * OS X 10.11
 * Windows 10 Pro 64bit
 
+#### メモ
+
+##### 現在位置を GOPATH にする
+
+BASH の場合 ([完全版](gopath.sh)):
+
+```bash
+export GOPATH="$(cd "$(dirname "${BASH_SOURCE:-$0}")"; pwd)"
+```
+
+バッチファイルの場合 ([完全版](gopath.bat)):
+
+```
+for /f "delims=" %%a in ('@cd') do setx GOPATH %%a
+```
+
+setx の都合上、コンソール起動前に実行する必要がある。
+
+##### gofmt/goimports 全部適用
+
+バッチファイルの場合 ([完全版](format.bat)):
+
+```
+for /r %%i in (*.go) do bin\goimports -l -w "%%i"
+```
+
+##### ベンチマークテスト実行
+
+ch02/ex03 の例:
+
+`go test github.com/mikan/gopl/ch02/ex03 -bench=.`
+
 ### 謝辞
 
 #### 研修指導
