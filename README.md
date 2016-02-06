@@ -64,7 +64,9 @@ for /r %%i in (*.go) do bin\goimports -l -w "%%i"
 
 ch02/ex03 の例:
 
-`go test github.com/mikan/gopl/ch02/ex03 -bench=.`
+```bash
+go test github.com/mikan/gopl/ch02/ex03 -bench=.`
+```
 
 ### 謝辞
 
