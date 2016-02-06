@@ -1,19 +1,18 @@
-// Copyright 2015-2016 mikan. All rights reserved.
-
 package main
 
+// Depends on popcount package in the ex02
 import (
 	"fmt"
 	"time"
 
 	"github.com/mikan/gopl/ch02/ex03/popcount"
-	"github.com/mikan/gopl/ch02/ex03/popcount2"
+	"github.com/mikan/gopl/ch02/ex04/popcount3"
 )
 
 func main() {
 	ch := make(chan string)
 	go loop(1, 10000000, 1023, ch)
-	go loop(2, 10000000, 1023, ch)
+	go loop(3, 10000000, 1023, ch)
 	fmt.Println(<-ch)
 	fmt.Println(<-ch)
 }
@@ -24,8 +23,8 @@ func loop(method int, count int, input uint64, ch chan<- string) {
 		switch method {
 		case 1:
 			popcount.PopCount(input)
-		case 2:
-			popcount2.PopCount(input)
+		case 3:
+			popcount3.PopCount(input)
 		default:
 			panic("unknown method")
 		}
@@ -36,6 +35,6 @@ func loop(method int, count int, input uint64, ch chan<- string) {
 	}
 }
 
-// Result (popcount2 is fucking slow.):
+// Result (popcount3 is fucking slow.):
 // [popcount1] Elapsed time: 0.06s (count = 10000000)
-// [popcount2] Elapsed time: 0.19s (count = 10000000)
+// [popcount3] Elapsed time: 1.50s (count = 10000000)
