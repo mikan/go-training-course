@@ -11,6 +11,7 @@ import (
 	"math"
 	"math/rand"
 	"os"
+	"time"
 )
 
 var palette = []color.Color{
@@ -26,7 +27,8 @@ const (
 )
 
 func main() {
-	lissajous(os.Stdout) // 原著と翻訳原稿でコードが違う…
+	rand.Seed(time.Now().UTC().UnixNano()) // See errata of p.13
+	lissajous(os.Stdout)
 }
 
 func lissajous(out io.Writer) {
