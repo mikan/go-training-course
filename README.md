@@ -60,12 +60,12 @@ setx の都合上、コンソール起動前に実行する必要がある。
 for /r %%i in (*.go) do bin\goimports -l -w "%%i"
 ```
 
-##### ベンチマークテスト実行
+##### ベンチマークテストの実行
 
 ch02/ex03 の例:
 
 ```bash
-go test github.com/mikan/gopl/ch02/ex03 -bench=.`
+go test github.com/mikan/gopl/ch02/ex03 -bench=.
 ```
 
 ### 謝辞
