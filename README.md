@@ -26,8 +26,8 @@ golang:
 
 IDE:
 
-* JetBrains IntelliJ IDEA Ultimate 15
-* vim
+* JetBrains IntelliJ IDEA Ultimate 15 with [Go plugin](https://github.com/go-lang-plugin-org)
+* Atom 1.4 with [go-plus plugin](https://atom.io/packages/go-plus)
 
 OS:
 
