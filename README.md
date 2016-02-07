@@ -54,6 +54,12 @@ setx の都合上、コンソール起動前に実行する必要がある。
 
 ##### gofmt/goimports 全部適用
 
+BASH の場合 ([完全版](format.sh)):
+
+```bash
+find . -name "*.go" -exec bin/goimports -l -w {} \;
+```
+
 バッチファイルの場合 ([完全版](format.bat)):
 
 ```
