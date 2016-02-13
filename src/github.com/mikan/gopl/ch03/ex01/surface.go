@@ -30,9 +30,8 @@ func main() {
 			bx, by := corner(i, j)
 			cx, cy := corner(i, j+1)
 			dx, dy := corner(i+1, j+1)
-			if math.IsNaN(ax) || math.IsNaN(ay) || math.IsNaN(bx) || math.IsNaN(by) ||
-				math.IsNaN(cx) || math.IsNaN(cy) || math.IsNaN(dx) || math.IsNaN(dy) {
-				log.Printf("NaN skipped: %g,%g %g,%g %g,%g %g,%g", ax, ay, bx, by, cx, cy, dx, dy)
+			if !validate(ax, ay, bx, by, cx, cy, dx, dy) {
+				log.Printf("Invalid number skipped: %g,%g %g,%g %g,%g %g,%g", ax, ay, bx, by, cx, cy, dx, dy)
 				continue
 			}
 			fmt.Printf("<polygon points='%g,%g %g,%g %g,%g %g,%g'/>\n", ax, ay, bx, by, cx, cy, dx, dy)
@@ -58,4 +57,14 @@ func corner(i, j int) (float64, float64) {
 func f(x, y float64) float64 {
 	r := math.Hypot(x, y) // distance from (0,0)
 	return math.Sin(r) / r
+}
+
+// Returns valid (all values are finite) or invalid (infinite or NaN included).
+func validate(values ...float64) bool {
+	for _, v := range values {
+		if math.IsNaN(v) || math.IsInf(v, 0) {
+			return false
+		}
+	}
+	return true
 }
