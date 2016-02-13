@@ -41,4 +41,3 @@ func BenchmarkPopCount4(b *testing.B) {
 // BenchmarkPopCount3-4     3000000               398 ns/op
 // BenchmarkPopCount4-4    20000000                85.3 ns/op
 // ok      github.com/mikan/gopl/ch02/ex05 7.551s
-

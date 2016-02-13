@@ -27,7 +27,6 @@ func BenchmarkRun2(b *testing.B) {
 // BenchmarkRun2-4  3000000               424 ns/op
 // ok      github.com/mikan/gopl/ch01/ex03 3.984s
 
-
 func TestEcho3(t *testing.T) {
 	run1(nil)
 	run2(nil)
