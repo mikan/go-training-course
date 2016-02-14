@@ -60,19 +60,19 @@ func superSampling(source image.Image) image.Image {
 func around(source image.Image, px, py int) [9]color.Color {
 	var colors [9]color.Color
 	// Matrix (* = target)
-	// 1 2 3
-	// 4 * 6
-	// 7 8 9
-	colors[0] = source.At(px-1, py-1) // 1
-	colors[1] = source.At(px, py-1)   // 2
-	colors[2] = source.At(px+1, py-1) // 3
-	colors[3] = source.At(px-1, py)   // 4
-	colors[4] = source.At(px, py)     // *
-	colors[5] = source.At(px+1, py)   // 6
-	colors[6] = source.At(px-1, py+1) // 7
-	colors[7] = source.At(px, py+1)   // 8
-	colors[8] = source.At(px+1, py+1) // 9
-	return colors                     // contains (0,0,0,0) when out of table.
+	//   0 1 2
+	//   3 * 5
+	//   6 7 8
+	colors[0] = source.At(px-1, py-1)
+	colors[1] = source.At(px, py-1)
+	colors[2] = source.At(px+1, py-1)
+	colors[3] = source.At(px-1, py)
+	colors[4] = source.At(px, py)
+	colors[5] = source.At(px+1, py)
+	colors[6] = source.At(px-1, py+1)
+	colors[7] = source.At(px, py+1)
+	colors[8] = source.At(px+1, py+1)
+	return colors // contains (0,0,0,0) when out of table.
 }
 
 func average(colors [9]color.Color) color.Color {
