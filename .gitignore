@@ -5,3 +5,5 @@
 !/bin/goimports.exe
 /src/*
 !/src/github.com/mikan/gopl
+/pkg/*
+!/pkg/README.md
