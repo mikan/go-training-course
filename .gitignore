@@ -3,3 +3,5 @@
 !/bin/README.md
 !/bin/goimports
 !/bin/goimports.exe
+/src/*
+!/src/github.com/mikan/gopl
