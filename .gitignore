@@ -6,5 +6,6 @@
 /pkg/*
 !/pkg/README.md
 /out
+/src/golang.org
 /src/gopl.io
-src/github.com/golang
+/src/github.com/golang
