@@ -3,6 +3,7 @@
 !/bin/README.md
 !/bin/goimports
 !/bin/goimports.exe
+!/bin/golint
 /pkg/*
 !/pkg/README.md
 /out
