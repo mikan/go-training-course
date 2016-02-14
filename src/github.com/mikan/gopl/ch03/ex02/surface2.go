@@ -56,6 +56,8 @@ func corner(i, j int, method string) (float64, float64) {
 	switch method {
 	case "eggbox":
 		z = eggBox(x, y)
+	case "moguls":
+		z = moguls(x, y)
 	case "saddle":
 		z = saddle(x, y)
 	default:
@@ -73,6 +75,11 @@ func eggBox(x, y float64) float64 {
 	// [Cos[x]Sin[y], {x, 0, 4 Pi}, [y, 0, 4 Pi]]
 	// Refer http://archive.vector.org.uk/trad/v224/v224-IAN/clark.htm
 	return math.Cos(x) * math.Sin(y) / 5
+}
+
+func moguls(x, y float64) float64 {
+	// Hmm... Is this moguls? (refer fig.7.7)
+	return math.Pow(2, math.Sin(y)) * math.Pow(2, math.Sin(x)) / 12
 }
 
 func saddle(x, y float64) float64 {

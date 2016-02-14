@@ -34,7 +34,8 @@ func main() {
 				log.Printf("Invalid number skipped: %g,%g %g,%g %g,%g %g,%g", ax, ay, bx, by, cx, cy, dx, dy)
 				continue
 			}
-			fmt.Printf("<polygon points='%g,%g %g,%g %g,%g %g,%g'/>\n", ax, ay, bx, by, cx, cy, dx, dy)
+			fmt.Printf("<polygon points='%g,%g %g,%g %g,%g %g,%g' style='fill: %s' />\n",
+				ax, ay, bx, by, cx, cy, dx, dy, colorIndex(i, j))
 		}
 	}
 	fmt.Println("</svg>")
@@ -67,4 +68,16 @@ func validate(values ...float64) bool {
 		}
 	}
 	return true
+}
+
+// Returns color code based on height.
+func colorIndex(i, j int) string {
+	// z: min = -0.21722891503668823, max = 0.9850673555377986 -> (0.0 to 1.0) -> 0 to 255
+	const minValue = 0.3
+	const maxValue = 1.0
+	z := f(xyRange*(float64(i)/cells-0.5), xyRange*(float64(j)/cells-0.5))
+	r := (z + minValue) * (256 / (minValue + maxValue))
+	g := 0
+	b := 255 - r
+	return fmt.Sprintf("#%02x%02x%02x", int(r), int(g), int(b))
 }
