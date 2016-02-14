@@ -45,7 +45,7 @@ func mandelbrot(z complex128) color.Color {
 	return color.RGBA{50, 128, 50, 255}
 }
 
-// Super sampling for source image.
+// 多分題意と違う。。
 func superSampling(source image.Image) image.Image {
 	img := image.NewRGBA(source.Bounds())
 	for py := 0; py < img.Rect.Dy(); py++ {
