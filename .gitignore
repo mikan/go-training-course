@@ -4,6 +4,7 @@
 !/bin/goimports
 !/bin/goimports.exe
 !/bin/golint
+!/bin/golint.exe
 /pkg/*
 !/pkg/README.md
 /out
