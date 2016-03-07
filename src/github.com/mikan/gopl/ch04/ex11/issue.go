@@ -14,12 +14,11 @@ import (
 	"os"
 	"strings"
 
-	"bufio"
-	"io"
-
 	"strconv"
 
 	"github.com/mikan/gopl/ch04/ex11/github"
+	"github.com/mikan/util/auth"
+	"github.com/mikan/util/input"
 )
 
 func main() {
@@ -34,21 +33,21 @@ func main() {
 	}
 
 	// Input login credential
-	var cred github.Credential
-	cred.Username = textInput("Username")
-	cred.Password = textInput("Password")
+	var cred auth.Credential
+	cred.Username = input.Word("Username")
+	cred.Password = input.Word("Password")
 
 	// Main loop
 	for {
-		switch normalize(textInput("Input {c,r,u,d,p}")) {
+		switch input.Word("Input {c,r,u,d,p}") {
 		case "c":
 			create(repo, &cred)
 		case "r":
-			read(repo, normalize(textInput("Input issue num")))
+			read(repo, input.Word("Input issue num"))
 		case "u":
-			update(repo, normalize(textInput("Input issue num")), &cred)
+			update(repo, input.Word("Input issue num"), &cred)
 		case "d":
-			del(repo, normalize(textInput("Input issue num")), &cred)
+			del(repo, input.Word("Input issue num"), &cred)
 		case "p":
 			printIssues(searchIssues([]string{github.RepoPrefix + repo}))
 		default:
@@ -58,13 +57,13 @@ func main() {
 }
 
 // Handles "c" operation.
-func create(repo string, cred *github.Credential) {
+func create(repo string, cred *auth.Credential) {
 	var edit github.IssueRequest
-	edit.Title = textInputSingleLine("Input title")
-	edit.Body = textInputMultiLine("Input body")
+	edit.Title = input.SingleLine("Input title")
+	edit.Body = input.MultiLine("Input body")
 
 	// Confirmation
-	if textInput("Are you sure to create? {y,n}") != "y" {
+	if input.Word("Are you sure to create? {y,n}") != "y" {
 		fmt.Println("Create aboted.")
 		return
 	}
@@ -83,7 +82,7 @@ func read(repo, id string) {
 }
 
 // Handles "u" operation.
-func update(repo, id string, cred *github.Credential) {
+func update(repo, id string, cred *auth.Credential) {
 	// Retrieve and display the current information
 	issue := getIssue(repo, id)
 	var assignee string
@@ -99,15 +98,15 @@ func update(repo, id string, cred *github.Credential) {
 
 	// Editing type selection
 	var edit github.IssueRequest
-	switch normalize(textInput("Which do you want to change? {t,s,b,a}")) {
+	switch input.Word("Which do you want to change? {t,s,b,a}") {
 	case "t":
-		edit.Title = textInputSingleLine("Input title")
+		edit.Title = input.SingleLine("Input title")
 	case "s":
-		edit.State = textInput("Input state {open,closed}")
+		edit.State = input.Word("Input state {open,closed}")
 	case "b":
-		edit.Body = textInputMultiLine("Input body")
+		edit.Body = input.MultiLine("Input body")
 	case "a":
-		edit.Assignee = textInput("Input assignee")
+		edit.Assignee = input.Word("Input assignee")
 	default:
 		fmt.Println("Update aboted.")
 		return
@@ -136,7 +135,7 @@ func update(repo, id string, cred *github.Credential) {
 	fmt.Println("Assignee: " + modAssignee)
 
 	// Confirmation
-	if textInput("Are you sure to change? {y,n}") != "y" {
+	if input.Word("Are you sure to change? {y,n}") != "y" {
 		fmt.Println("Update aboted.")
 		return
 	}
@@ -149,7 +148,7 @@ func update(repo, id string, cred *github.Credential) {
 }
 
 // Handles "d" operation.
-func del(repo, id string, cred *github.Credential) {
+func del(repo, id string, cred *auth.Credential) {
 	// Retrieve & check condition.
 	issue := getIssue(repo, id)
 	if issue.State == "closed" {
@@ -158,7 +157,7 @@ func del(repo, id string, cred *github.Credential) {
 	}
 
 	// Confirmation
-	if textInput("Are you shure to close #"+id+"? {y,n}") != "y" {
+	if input.Word("Are you shure to close #"+id+"? {y,n}") != "y" {
 		fmt.Println("Close aboted.")
 		return
 	}
@@ -199,48 +198,6 @@ func getIssue(repo, id string) *github.Issue {
 	}
 	fmt.Println(" done.")
 	return issue
-}
-
-func textInput(msg string) string {
-	fmt.Print(msg + " > ")
-	var text string
-	fmt.Scan(&text)
-	return text
-}
-
-func textInputSingleLine(msg string) string {
-	fmt.Print(msg + " > ")
-	in := bufio.NewReader(os.Stdin)
-	line, _, err := in.ReadLine() // returns line, isPrefix, error
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "%v\n", err)
-		os.Exit(1)
-	}
-	return string(line)
-}
-
-func textInputMultiLine(msg string) string {
-	fmt.Println(msg + " (Ctrl+D to complete) >>>")
-	var body string
-	in := bufio.NewReader(os.Stdin)
-	for {
-		line, _, err := in.ReadLine() // returns line, isPrefix, error
-		if err == io.EOF {
-			break
-		}
-		if err != nil {
-			fmt.Fprintf(os.Stderr, "%v\n", err)
-			os.Exit(1)
-		}
-		body += string(line) + "\n"
-	}
-	return body
-}
-
-func normalize(msg string) string {
-	msg = strings.Trim(msg, " ")
-	msg = strings.ToLower(msg)
-	return msg
 }
 
 func printIssue(item *github.Issue) {

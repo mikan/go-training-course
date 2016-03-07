@@ -4,10 +4,7 @@
 // See https://developer.github.com/v3/search/#search-issues.
 package github
 
-import (
-	"encoding/base64"
-	"time"
-)
+import "time"
 
 const RepoPrefix = "repo:"
 const RepoParam = ":repo"
@@ -44,14 +41,4 @@ type Issue struct {
 type User struct {
 	Login   string
 	HTMLURL string `json:"html_url"`
-}
-
-type Credential struct {
-	Username string
-	Password string
-}
-
-func basicAuth(cred *Credential) (string, string) {
-	auth := cred.Username + ":" + cred.Password
-	return "Authorization", "Basic " + base64.StdEncoding.EncodeToString([]byte(auth))
 }
