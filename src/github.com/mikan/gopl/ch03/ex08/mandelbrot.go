@@ -12,6 +12,7 @@ import (
 	"os"
 	"strconv"
 
+	"fmt"
 	"github.com/mikan/util/conv"
 )
 
@@ -21,13 +22,17 @@ import (
 // > bin/ex08 -0.100114992430011 -0.87910000000147 0.00000000000001 1 > out/m1.png && open out/m1.png
 //
 // Giza-giza in C64:
-// > bin/ex08 -0.100114992430011 -0.87910000000147 0.00001 2 > out/m2.png && open out/m2.png
+// > bin/ex08 -0.100114992430011 -0.87910000000147 0.000001 2 > out/m2.png && open out/m2.png
 //
-// BigFloat (100x100):
-// > bin/ex08 -0.100114992430011 -0.87910000000147 0.00001 3 100 > out/m3.png && open out/m3.png
+// BigFloat (320x320):
+// > bin/ex08 -0.100114992430011 -0.87910000000147 0.000001 3 320 > out/m3.png && open out/m3.png
 //
-// BigRat (SUPER SLOW!!!!):
-// > bin/ex08 -0.100114992430011 -0.87910000000147 0.00001 4 10 > out/m4.png && open out/m4.png
+// BigRat (4x4, SUPER SLOW!!!!):
+// > bin/ex08 -0.100114992430011 -0.87910000000147 0.000001 4 4 > out/m4.png && open out/m4.png
+//
+// BigRat with reduce:
+// > bin/ex08 -0.100114992430011 -0.87910000000147 0.000001 5 100 > out/m4.png && open out/m4.png
+//
 func main() {
 	x, y := 0.0, 0.0
 	z := 2.0
@@ -35,20 +40,20 @@ func main() {
 	s := 1024
 	switch len(os.Args[1:]) {
 	case 1: // t
-		t = conv.SafeRangedAtoI(os.Args[4], t, 1, 4)
+		t = conv.SafeRangedAtoI(os.Args[4], t, 1, 5)
 	case 2: // z t
 		z = conv.SafeAtoF(os.Args[3], z)
-		t = conv.SafeRangedAtoI(os.Args[4], t, 1, 4)
+		t = conv.SafeRangedAtoI(os.Args[4], t, 1, 5)
 	case 4: // x y z t
 		x = conv.SafeAtoF(os.Args[1], x)
 		y = conv.SafeAtoF(os.Args[2], y)
 		z = conv.SafeAtoF(os.Args[3], z)
-		t = conv.SafeRangedAtoI(os.Args[4], t, 1, 4)
+		t = conv.SafeRangedAtoI(os.Args[4], t, 1, 5)
 	case 5: // x y z t s
 		x = conv.SafeAtoF(os.Args[1], x)
 		y = conv.SafeAtoF(os.Args[2], y)
 		z = conv.SafeAtoF(os.Args[3], z)
-		t = conv.SafeRangedAtoI(os.Args[4], t, 1, 4)
+		t = conv.SafeRangedAtoI(os.Args[4], t, 1, 5)
 		s = conv.SafeAtoI(os.Args[5], s)
 	default:
 		log.Fatal("Usage: " + os.Args[0] + " x y z n (1=C128, 2=C64, 3=big.Float, 4=big.Rat")
@@ -62,6 +67,8 @@ func main() {
 		png.Encode(os.Stdout, draw(x, y, z, BigFloat, s))
 	case 4:
 		png.Encode(os.Stdout, draw(x, y, z, BigRat, s))
+	case 5:
+		png.Encode(os.Stdout, draw(x, y, z, BigRat2, s))
 	default:
 		log.Fatal("Unexpected t: " + strconv.Itoa(1))
 	}
@@ -74,6 +81,7 @@ const (
 	C128
 	BigFloat
 	BigRat
+	BigRat2
 )
 
 func draw(centerX, centerY, zoom float64, numType NumType, size int) *image.RGBA {
@@ -95,9 +103,13 @@ func draw(centerX, centerY, zoom float64, numType NumType, size int) *image.RGBA
 				img.Set(px, py, mandelbrotBigFloat(x+centerX, y+centerY))
 			case BigRat:
 				img.Set(px, py, mandelbrotBigRat(x+centerX, y+centerY)) // Super slow!!!!
+			case BigRat2:
+				img.Set(px, py, mandelbrotBigRat2(x+centerX, y+centerY)) // Super slow!!!!
 			}
 		}
+		fmt.Fprintf(os.Stderr, ".")
 	}
+	fmt.Fprintln(os.Stderr)
 	return img
 }
 
@@ -159,6 +171,23 @@ func mandelbrotBigRat(x, y float64) color.Color {
 	v := NewBigRatComplex(0, 0)
 	for n := uint8(0); n < iterations; n++ {
 		v = AddBigRatComplex(MulBigRatComplex(v, v), z)
+		if AbsBigRatComplex(v) > 2 {
+			b := 255 - contrast*n
+			r := 255 - b
+			g := 0
+			return color.RGBA{uint8(r), uint8(g), uint8(b), 255}
+		}
+	}
+	return color.RGBA{50, 128, 50, 255}
+}
+
+func mandelbrotBigRat2(x, y float64) color.Color {
+	const iterations = 200
+	const contrast = 15
+	z := NewBigRatComplex(x, y)
+	v := NewBigRatComplex(0, 0)
+	for n := uint8(0); n < iterations; n++ {
+		v = AddBigRatComplex2(MulBigRatComplex2(v, v), z)
 		if AbsBigRatComplex(v) > 2 {
 			b := 255 - contrast*n
 			r := 255 - b

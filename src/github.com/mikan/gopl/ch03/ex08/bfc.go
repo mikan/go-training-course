@@ -31,16 +31,8 @@ func AddBigFloatComplex(x, y *BigFloatComplex) *BigFloatComplex {
 
 func MulBigFloatComplex(x, y *BigFloatComplex) *BigFloatComplex {
 	c := NewBigFloatComplex(0, 0)
-	r1 := new(big.Float)
-	r2 := new(big.Float)
-	r1.Mul(x.R, y.R)
-	r2.Mul(x.I, y.I)
-	c.R.Sub(r1, r2)
-	i1 := new(big.Float)
-	i2 := new(big.Float)
-	i1.Mul(x.R, y.I)
-	i2.Mul(x.I, y.R)
-	c.I.Add(i1, i2)
+	c.R.Sub(new(big.Float).Mul(x.R, y.R), new(big.Float).Mul(x.I, y.I))
+	c.I.Add(new(big.Float).Mul(x.R, y.I), new(big.Float).Mul(x.I, y.R))
 	return c
 }
 
