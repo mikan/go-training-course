@@ -31,7 +31,7 @@ import (
 // > bin/ex08 -0.100114992430011 -0.87910000000147 0.000001 4 4 > out/m4.png && open out/m4.png
 //
 // BigRat with reduce:
-// > bin/ex08 -0.100114992430011 -0.87910000000147 0.000001 5 100 > out/m4.png && open out/m4.png
+// > bin/ex08 -0.100114992430011 -0.87910000000147 0.000001 5 320 > out/m5.png && open out/m5.png
 //
 func main() {
 	x, y := 0.0, 0.0
