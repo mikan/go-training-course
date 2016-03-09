@@ -3,35 +3,26 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"log"
-	"net/http"
-	"net/url"
 
+	"io/ioutil"
+	"os"
+
+	"github.com/mikan/gopl/ch04/ex13/omdb"
 	"github.com/mikan/util/crypt"
 	"github.com/mikan/util/input"
 )
 
-const searchURL = "http://www.omdbapi.com/?r=json&t="
-
-var encryptedAPIKey = []byte{85, 94, 58, 196, 151, 219, 205, 244, 117, 22, 2, 102, 91, 79, 123, 250}
+var encryptedAPIKey = []byte{46, 143, 219, 179, 208, 231, 113, 28, 238, 20, 156, 16, 11, 143, 167, 225}
+var nilMovie omdb.Movie
 
 func main() {
-	// enc,_ := crypt.Encrypt("API KEY", "PASSWORD")
-	// fmt.Printf("%d\n", enc)
-	var apiKey string
-	for {
-		password := input.Word("Input Aikotoba")
-		if input.IsQuit(password) {
-			return
-		}
-		apiKey, _ = crypt.Decrypt(encryptedAPIKey, password)
-		if len(apiKey) == 8 {
-			break // correct
-		}
-		fmt.Println("Illegal Aikotoba: " + password)
-	}
+	// To create encryptedAPIKey, uncomment and update with your API key and password (strings import needed).
+	// enc,_ := crypt.Encrypt("APIKEY", "PASSWORD")
+	// println("encryptedAPIKey=" + strings.Replace(fmt.Sprintf("%d", enc), " ", ",", -1))
+
+	var apiKey = ""
 
 	// Main loop
 	for {
@@ -39,47 +30,63 @@ func main() {
 		if input.IsQuit(query) {
 			return
 		}
-		list, err := search(query)
-		if err != nil {
-			log.Fatal(err)
-		}
-		if list == nil {
+		m := handleSearch(query)
+		if m == nilMovie {
 			fmt.Println("No such movie: " + query)
 			continue
 		}
-		m := list[0]
 		fmt.Println("Found: " + m.Title + " (" + m.Year + ")")
-
-		// Poster
-		if input.Word("Donload a poster? {y,n}") != "y" {
-			continue
+		if input.Word("Donload a poster? {y,n}") == "y" {
+			if apiKey == "" {
+				apiKey = handleAPIKeyInput()
+				if apiKey == "" {
+					return
+				}
+			}
+			handlePoster(m.IMDBID, apiKey)
 		}
-		fmt.Println("Oops! Not implemented yet.")
 	}
 }
 
-func search(query string) ([]Movie, error) {
-	// Retrieve
-	q := url.QueryEscape(query)
-	resp, err := http.Get(searchURL + q)
+func handleSearch(query string) omdb.Movie {
+	list, err := omdb.Search(query)
 	if err != nil {
-		return nil, err
+		log.Fatal(err)
 	}
-	if resp.StatusCode != http.StatusOK {
-		resp.Body.Close()
-		fmt.Println("URL: " + searchURL + q)
-		return nil, fmt.Errorf("search query failed: %s", resp.Status)
+	if list == nil {
+		return nilMovie
 	}
+	return list[0]
+}
 
-	// Parse
-	var movie Movie
-	if err := json.NewDecoder(resp.Body).Decode(&movie); err != nil {
-		resp.Body.Close()
-		return nil, err
+func handleAPIKeyInput() string {
+	for {
+		password := input.Word("Input Aikotoba")
+		if input.IsQuit(password) {
+			return ""
+		}
+		apiKey, _ := crypt.Decrypt(encryptedAPIKey, password)
+		if len(apiKey) == 8 {
+			return apiKey // correct
+		}
+		fmt.Println("Illegal Aikotoba: " + password)
 	}
-	resp.Body.Close()
-	if movie.Response != "True" {
-		return nil, nil
+}
+
+func handlePoster(id, apiKey string) {
+	path := os.TempDir()
+	pathInput := input.SingleLine("Save to [" + path + "]")
+	if pathInput != "" {
+		path = pathInput
 	}
-	return []Movie{movie}, nil
+	path += "/" + id
+	poster, err := omdb.GetPoster(apiKey, id)
+	if err != nil {
+		log.Fatal(err)
+	}
+	err2 := ioutil.WriteFile(path, poster, 0644)
+	if err2 != nil {
+		log.Fatal(err2)
+	}
+	fmt.Println("Successfully wrote to " + path)
 }

@@ -1,6 +1,6 @@
 // Copyright 2016 mikan. All rights reserved.
 
-package main
+package omdb
 
 type Movie struct {
 	Title      string
@@ -24,3 +24,7 @@ type Movie struct {
 	Type       string
 	Response   string
 }
+
+const apiKeyParam = "********"
+const searchURL = "http://www.omdbapi.com/?r=json&t="
+const posterURL = "http://img.omdbapi.com/?apikey=" + apiKeyParam + "&i="
