@@ -60,5 +60,5 @@ func Normalize(msg string) string {
 // Returns whether command is quit (or exit).
 func IsQuit(msg string) bool {
 	text := Normalize(msg)
-	return text == "quit" || text == "exit"
+	return text == "quit" || text == "exit" || text == "42"
 }
