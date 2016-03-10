@@ -12,6 +12,7 @@ import (
 	"github.com/mikan/gopl/ch04/ex13/omdb"
 	"github.com/mikan/util/crypt"
 	"github.com/mikan/util/input"
+	"net/http"
 )
 
 var encryptedAPIKey = []byte{46, 143, 219, 179, 208, 231, 113, 28, 238, 20, 156, 16, 11, 143, 167, 225}
@@ -37,13 +38,17 @@ func main() {
 		}
 		fmt.Println("Found: " + m.Title + " (" + m.Year + ")")
 		if input.Word("Donload a poster? {y,n}") == "y" {
-			if apiKey == "" {
-				apiKey = handleAPIKeyInput()
+			if input.Word("Select API {1,2} (1=Poster API, 2=Poster Element)") == "1" {
 				if apiKey == "" {
-					return
+					apiKey = handleAPIKeyInput()
+					if apiKey == "" {
+						return
+					}
 				}
+				handlePoster(m.IMDBID, apiKey)
+			} else {
+				handlePoster2(m.IMDBID, m.Poster)
 			}
-			handlePoster(m.IMDBID, apiKey)
 		}
 	}
 }
@@ -73,6 +78,7 @@ func handleAPIKeyInput() string {
 	}
 }
 
+// Fetch poster from Poster API
 func handlePoster(id, apiKey string) {
 	path := os.TempDir()
 	pathInput := input.SingleLine("Save to [" + path + "]")
@@ -86,6 +92,33 @@ func handlePoster(id, apiKey string) {
 	}
 	err2 := ioutil.WriteFile(path, poster, 0644)
 	if err2 != nil {
+		log.Fatal(err2)
+	}
+	fmt.Println("Successfully wrote to " + path)
+}
+
+// Fetch poster from element of search result.
+func handlePoster2(id, poster string) {
+	if poster == "N/A" {
+		fmt.Println("Poster is not available.")
+		return
+	}
+	path := os.TempDir()
+	pathInput := input.SingleLine("Save to [" + path + "]")
+	if pathInput != "" {
+		path = pathInput
+	}
+	path += "/" + id
+	resp, err := http.Get(poster)
+	if err != nil {
+		log.Fatal(err)
+	}
+	data, err2 := ioutil.ReadAll(resp.Body)
+	if err2 != nil {
+		log.Fatal(err2)
+	}
+	err3 := ioutil.WriteFile(path, data, 0644)
+	if err3 != nil {
 		log.Fatal(err2)
 	}
 	fmt.Println("Successfully wrote to " + path)
