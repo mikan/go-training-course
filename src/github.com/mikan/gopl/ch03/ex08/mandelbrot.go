@@ -38,6 +38,7 @@ func main() {
 	z := 2.0
 	t := 1
 	s := 1024
+	i := 200
 	switch len(os.Args[1:]) {
 	case 1: // t
 		t = conv.SafeRangedAtoI(os.Args[4], t, 1, 5)
@@ -55,20 +56,27 @@ func main() {
 		z = conv.SafeAtoF(os.Args[3], z)
 		t = conv.SafeRangedAtoI(os.Args[4], t, 1, 5)
 		s = conv.SafeAtoI(os.Args[5], s)
+	case 6: // x y z t s i
+		x = conv.SafeAtoF(os.Args[1], x)
+		y = conv.SafeAtoF(os.Args[2], y)
+		z = conv.SafeAtoF(os.Args[3], z)
+		t = conv.SafeRangedAtoI(os.Args[4], t, 1, 5)
+		s = conv.SafeAtoI(os.Args[5], s)
+		i = conv.SafeAtoI(os.Args[6], s)
 	default:
-		log.Fatal("Usage: " + os.Args[0] + " x y z n (1=C128, 2=C64, 3=big.Float, 4=big.Rat")
+		log.Fatal("Usage: " + os.Args[0] + " x y z n (1=C128, 2=C64, 3=big.Float, 4=big.Rat) s i")
 	}
 	switch t {
 	case 1:
-		png.Encode(os.Stdout, draw(x, y, z, C128, s))
+		png.Encode(os.Stdout, draw(x, y, z, C128, s, i))
 	case 2:
-		png.Encode(os.Stdout, draw(x, y, z, C64, s))
+		png.Encode(os.Stdout, draw(x, y, z, C64, s, i))
 	case 3:
-		png.Encode(os.Stdout, draw(x, y, z, BigFloat, s))
+		png.Encode(os.Stdout, draw(x, y, z, BigFloat, s, i))
 	case 4:
-		png.Encode(os.Stdout, draw(x, y, z, BigRat, s))
+		png.Encode(os.Stdout, draw(x, y, z, BigRat, s, i))
 	case 5:
-		png.Encode(os.Stdout, draw(x, y, z, BigRat2, s))
+		png.Encode(os.Stdout, draw(x, y, z, BigRat2, s, i))
 	default:
 		log.Fatal("Unexpected t: " + strconv.Itoa(1))
 	}
@@ -84,7 +92,10 @@ const (
 	BigRat2
 )
 
-func draw(centerX, centerY, zoom float64, numType NumType, size int) *image.RGBA {
+var iterations uint8 = 200
+
+func draw(centerX, centerY, zoom float64, numType NumType, size, i int) *image.RGBA {
+	iterations = uint8(i)
 	var width, height = size, size
 	var xMin, yMin, xMax, yMax = -zoom, -zoom, +zoom, +zoom
 	img := image.NewRGBA(image.Rect(0, 0, width, height))
@@ -113,9 +124,9 @@ func draw(centerX, centerY, zoom float64, numType NumType, size int) *image.RGBA
 	return img
 }
 
+const contrast = 15
+
 func mandelbrot128(x, y float64) color.Color {
-	const iterations = 200
-	const contrast = 15
 	z := complex(x, y)
 	var v complex128
 	for n := uint8(0); n < iterations; n++ {
@@ -131,8 +142,6 @@ func mandelbrot128(x, y float64) color.Color {
 }
 
 func mandelbrot64(x, y float64) color.Color {
-	const iterations = 200
-	const contrast = 15
 	z := complex64(complex(x, y))
 	var v complex64
 	for n := uint8(0); n < iterations; n++ {
@@ -148,8 +157,6 @@ func mandelbrot64(x, y float64) color.Color {
 }
 
 func mandelbrotBigFloat(x, y float64) color.Color {
-	const iterations = 200
-	const contrast = 15
 	z := NewBigFloatComplex(x, y)
 	v := NewBigFloatComplex(0, 0)
 	for n := uint8(0); n < iterations; n++ {
@@ -165,8 +172,6 @@ func mandelbrotBigFloat(x, y float64) color.Color {
 }
 
 func mandelbrotBigRat(x, y float64) color.Color {
-	const iterations = 200
-	const contrast = 15
 	z := NewBigRatComplex(x, y)
 	v := NewBigRatComplex(0, 0)
 	for n := uint8(0); n < iterations; n++ {
@@ -182,8 +187,6 @@ func mandelbrotBigRat(x, y float64) color.Color {
 }
 
 func mandelbrotBigRat2(x, y float64) color.Color {
-	const iterations = 200
-	const contrast = 15
 	z := NewBigRatComplex(x, y)
 	v := NewBigRatComplex(0, 0)
 	for n := uint8(0); n < iterations; n++ {
