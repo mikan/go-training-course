@@ -45,7 +45,7 @@ func mandelbrot(z complex128) color.Color {
 	return color.RGBA{50, 128, 50, 255}
 }
 
-// 多分題意と違う。。
+// [Review] 4倍にしたやつを与えて、reduce するのが正しい
 func superSampling(source image.Image) image.Image {
 	img := image.NewRGBA(source.Bounds())
 	for py := 0; py < img.Rect.Dy(); py++ {

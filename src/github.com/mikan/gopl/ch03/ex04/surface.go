@@ -9,18 +9,20 @@ import (
 	"math"
 )
 
-const (
-	width, height = 600, 320            // acnvas size in pixels
+var (
+	width, height = 600, 320            // a canvas size in pixels
 	cells         = 100                 // number of grid cells
 	xyRange       = 30.0                // axis range (-xyRange..+xyRange)
 	xyScale       = width / 2 / xyRange // pixels per x or y unit
-	zScale        = height * 0.4        // pxels per z unit
+	zScale        = height * 0.4        // pixels per z unit
 	angle         = math.Pi / 6         // angle of x, y axes (=30°)
 )
 
 var sin30, cos30 = math.Sin(angle), math.Cos(angle) // sin(30°), cos(30°)
 
-func svg() string {
+func svg(w, h int) string {
+	width = w
+	height = h
 	var svg string
 	svg += fmt.Sprintf("<svg xmlns='http://www.w3.org/2000/svg' "+
 		"style='stroke: gray; fill: white; stroke-width: 0.7' "+

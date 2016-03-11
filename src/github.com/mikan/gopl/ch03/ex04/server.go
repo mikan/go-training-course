@@ -5,6 +5,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/mikan/util/conv"
 	"log"
 	"net/http"
 )
@@ -12,7 +13,9 @@ import (
 func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "image/svg+xml")
-		fmt.Fprintf(w, svg())
+		x := conv.SafeAtoF(r.FormValue("x"), 600)
+		y := conv.SafeAtoF(r.FormValue("y"), 320)
+		fmt.Fprintf(w, svg(x, y))
 	})
 	log.Fatal(http.ListenAndServe("localhost:8000", nil))
 }

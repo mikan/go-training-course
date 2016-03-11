@@ -13,6 +13,9 @@ func anagram(s1, s2 string) bool {
 	if s1 == s2 {
 		return true
 	}
+	// Remove whitespace
+	s1 = strings.Replace(s1, " ", "", -1)
+	s2 = strings.Replace(s2, " ", "", -1)
 	if len(s1) != len(s2) {
 		return false
 	}
