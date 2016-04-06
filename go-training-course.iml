@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="GO_MODULE" version="4">
+  <component name="Go">
+    <buildTags>
+      <option name="os" value="default" />
+      <option name="arch" value="amd64" />
+      <option name="cgo" value="UNSURE" />
+      <option name="compiler" value="Any" />
+      <option name="goVersion" value="default" />
+      <option name="customFlags">
+        <array />
+      </option>
+    </buildTags>
+  </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$">

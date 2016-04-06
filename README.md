@@ -1,6 +1,8 @@
 Go Training Course
 ==================
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/mikan/go-training-course)](https://goreportcard.com/report/github.com/mikan/go-training-course)
+
 ### 概要
 
 本リポジトリは、第1期 (2016年)「Go 基本技術習得コース」の @mikan の課題を保管・共有するためのリポジトリです。
