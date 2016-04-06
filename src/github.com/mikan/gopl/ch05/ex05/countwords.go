@@ -5,10 +5,11 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"github.com/mikan/util/input"
-	"golang.org/x/net/html"
 	"net/http"
 	"strings"
+
+	"github.com/mikan/util/input"
+	"golang.org/x/net/html"
 )
 
 func main() {

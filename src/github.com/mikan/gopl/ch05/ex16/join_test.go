@@ -3,8 +3,8 @@
 package main
 
 import (
-	"testing"
 	"strings"
+	"testing"
 )
 
 func TestJoin(t *testing.T) {

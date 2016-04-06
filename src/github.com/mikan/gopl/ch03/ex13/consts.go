@@ -19,11 +19,11 @@ func main() {
 	fmt.Printf("1KB = %v\n", KB)
 	fmt.Printf("1MB = %v\n", MB)
 	fmt.Printf("1GB = %v\n", GB)
-//	fmt.Printf("1TB = %v\n", TB)
-//	fmt.Printf("1PB = %v\n", PB)
-//	fmt.Printf("1EB = %v\n", EB)
-//	fmt.Printf("1ZB = %v\n", ZB)
-//	fmt.Printf("1YB = %v\n", YB)
+	//	fmt.Printf("1TB = %v\n", TB)
+	//	fmt.Printf("1PB = %v\n", PB)
+	//	fmt.Printf("1EB = %v\n", EB)
+	//	fmt.Printf("1ZB = %v\n", ZB)
+	//	fmt.Printf("1YB = %v\n", YB)
 }
 
 // Output:

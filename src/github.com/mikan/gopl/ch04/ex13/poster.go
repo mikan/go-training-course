@@ -9,10 +9,11 @@ import (
 	"io/ioutil"
 	"os"
 
+	"net/http"
+
 	"github.com/mikan/gopl/ch04/ex13/omdb"
 	"github.com/mikan/util/crypt"
 	"github.com/mikan/util/input"
-	"net/http"
 )
 
 var encryptedAPIKey = []byte{46, 143, 219, 179, 208, 231, 113, 28, 238, 20, 156, 16, 11, 143, 167, 225}

@@ -21,15 +21,15 @@ func main() {
 }
 
 func uToA(text []byte) []byte {
-	for i := 0; i < len(text) - 1; i++ {
-		c := text[i:i+charLength(text[i])]
+	for i := 0; i < len(text)-1; i++ {
+		c := text[i : i+charLength(text[i])]
 		if isSpace(c) {
-			for j := 0; j < len(c);j++ {
+			for j := 0; j < len(c); j++ {
 				text[i+j] = ' ' // ascii space
 			}
 		}
 	}
-	for i := 0; i < len(text) - 1; i++ {
+	for i := 0; i < len(text)-1; i++ {
 		if text[i] == ' ' && text[i+1] == ' ' {
 			text = remove(text, i)
 			i--
@@ -57,6 +57,6 @@ func charLength(b byte) int {
 }
 
 func isSpace(b []byte) bool {
-	r,_ := utf8.DecodeRune(b)
+	r, _ := utf8.DecodeRune(b)
 	return unicode.IsSpace(r)
 }

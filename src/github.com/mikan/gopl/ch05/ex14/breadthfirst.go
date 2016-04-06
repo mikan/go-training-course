@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+
 	"github.com/mikan/gopl/ch05/ex13/links"
 )
 

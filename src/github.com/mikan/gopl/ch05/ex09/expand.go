@@ -3,8 +3,9 @@
 package main
 
 import (
-	"github.com/mikan/util/input"
 	"regexp"
+
+	"github.com/mikan/util/input"
 )
 
 func main() {

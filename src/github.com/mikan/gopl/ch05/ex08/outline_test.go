@@ -3,9 +3,10 @@
 package main
 
 import (
-	"golang.org/x/net/html"
 	"strings"
 	"testing"
+
+	"golang.org/x/net/html"
 )
 
 const expectedID = "foo"

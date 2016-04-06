@@ -27,7 +27,7 @@ func textInput() string {
 func popDiff(c1, c2 [32]byte) int {
 	count := 0
 	for i := 0; i < 32; i++ {
-		count += popcount.PopCount(uint64(c1[i])^uint64(c2[i]))
+		count += popcount.PopCount(uint64(c1[i]) ^ uint64(c2[i]))
 	}
 	return count
 }

@@ -1,5 +1,6 @@
 // Copyright 2016 mikan. All rights reserved.
 package main
+
 import "testing"
 
 func TestAnagram(t *testing.T) {

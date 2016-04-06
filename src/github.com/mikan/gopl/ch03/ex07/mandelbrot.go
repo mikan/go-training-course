@@ -60,7 +60,7 @@ func newton(z complex128) color.Color {
 			r := 255 - b
 			g := 0
 			return color.RGBA{uint8(r), uint8(g), uint8(b), 255}
-//			return color.Gray{255 - contrast*i}
+			//			return color.Gray{255 - contrast*i}
 		}
 	}
 	return color.Black

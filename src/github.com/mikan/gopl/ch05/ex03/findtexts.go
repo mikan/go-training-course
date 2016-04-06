@@ -8,11 +8,12 @@ import (
 	"os"
 
 	"bytes"
-	"github.com/mikan/util/input"
-	"golang.org/x/net/html"
 	"io"
 	"io/ioutil"
 	"net/http"
+
+	"github.com/mikan/util/input"
+	"golang.org/x/net/html"
 )
 
 func main() {

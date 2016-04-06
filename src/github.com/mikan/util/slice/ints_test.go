@@ -1,6 +1,7 @@
 // Copyright 2016 mikan. All rights reserved.
 
 package slice
+
 import "testing"
 
 func TestAdd(t *testing.T) {
