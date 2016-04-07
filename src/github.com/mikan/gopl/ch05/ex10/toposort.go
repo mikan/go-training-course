@@ -2,12 +2,7 @@
 
 package main
 
-import (
-	"fmt"
-	"sort"
-)
-
-// TODO: complete the ex10
+import "fmt"
 
 var prerequisites = map[string][]string{
 	"algorithms": {"data structures"},
@@ -37,24 +32,31 @@ func main() {
 func topologicalSort(m map[string][]string) []string {
 	var order []string
 	seen := make(map[string]bool)
-	var visitAll func(items []string)
+	var visitAll func(items map[string]bool)
 
-	visitAll = func(items []string) {
-		for _, item := range items {
+	visitAll = func(items map[string]bool) {
+		for item, _ := range items {
 			if !seen[item] {
 				seen[item] = true
-				visitAll(m[item])
+				visitAll(s2m(m[item]))
 				order = append(order, item)
 			}
 		}
 	}
 
-	var keys []string
+	keys := make(map[string]bool)
 	for key := range m {
-		keys = append(keys, key)
+		keys[key] = true
 	}
-
-	sort.Strings(keys)
 	visitAll(keys)
 	return order
+}
+
+// s2m converts slice to map
+func s2m(s []string) (m map[string]bool) {
+	m = make(map[string]bool)
+	for _, k := range s {
+		m[k] = true
+	}
+	return
 }
