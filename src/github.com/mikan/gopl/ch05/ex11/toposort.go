@@ -7,8 +7,6 @@ import (
 	"sort"
 )
 
-// TODO: complete the ex11
-
 var prerequisites = map[string][]string{
 	"algorithms": {"data structures"},
 	"calculus":   {"linear algebra"},
@@ -26,7 +24,7 @@ var prerequisites = map[string][]string{
 	"networks":              {"operating systems"},
 	"operating systems":     {"data structures", "computer organization"},
 	"programming languages": {"data structures", "computer organization"},
-	"linear algebra":        {"calculus"},
+	"linear algebra":        {"calculus"}, // inject loop
 }
 
 func main() {
@@ -46,6 +44,13 @@ func topologicalSort(m map[string][]string) []string {
 				seen[item] = true
 				visitAll(m[item])
 				order = append(order, item)
+				for _, i := range m[item] {
+					for _, j := range m[i] {
+						if j == item {
+							panic("loop: " + i + " - " + item)
+						}
+					}
+				}
 			}
 		}
 	}
