@@ -11,8 +11,6 @@ import (
 	"github.com/mikan/gopl/ch05/ex13/links"
 )
 
-// TODO: complete the ex13
-
 // breadthFirst calls f for each item in the worklist.
 // Any items returned by f are added to the worklist.
 // f is called at most once for each item.

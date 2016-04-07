@@ -15,7 +15,7 @@ import (
 func main() {
 	words, images, err := CountWordsAndImages(input.Word("Input URL"))
 	if err != nil {
-		err = fmt.Errorf("parseing HTML: %s", err)
+		fmt.Errorf("parseing HTML: %s", err)
 		return
 	}
 	fmt.Printf("words:  %d\n", words)

@@ -5,13 +5,8 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"os"
-
-	"github.com/mikan/gopl/ch05/ex13/links"
 )
-
-// TODO: complete the ex14
 
 // breadthFirst calls f for each item in the worklist.
 // Any items returned by f are added to the worklist.
@@ -31,11 +26,8 @@ func breadthFirst(f func(item string) []string, worklist []string) {
 }
 
 func crawl(url string) []string {
-	fmt.Println(url)
-	list, err := links.Extract(url)
-	if err != nil {
-		log.Print(err)
-	}
+	list := prerequisites[url]
+	fmt.Println(list)
 	return list
 }
 
@@ -44,4 +36,23 @@ func main() {
 	// Crawl the web breadth-first,
 	// starting from the command-line arguments.
 	breadthFirst(crawl, os.Args[1:])
+}
+
+var prerequisites = map[string][]string{
+	"algorithms": {"data structures"},
+	"calculus":   {"linear algebra"},
+
+	"compilers": {
+		"data structures",
+		"formal languages",
+		"computer organization",
+	},
+
+	"data structures":       {"discrete math"},
+	"databases":             {"data structures"},
+	"discrete math":         {"intro to programming"},
+	"formal languages":      {"discrete math"},
+	"networks":              {"operating systems"},
+	"operating systems":     {"data structures", "computer organization"},
+	"programming languages": {"data structures", "computer organization"},
 }
