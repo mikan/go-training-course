@@ -2,6 +2,7 @@ Go Training Course
 ==================
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/mikan/go-training-course)](https://goreportcard.com/report/github.com/mikan/go-training-course)
+[![Code Climate](https://codeclimate.com/github/mikan/go-training-course/badges/gpa.svg)](https://codeclimate.com/github/mikan/go-training-course)
 
 ### 概要
 
