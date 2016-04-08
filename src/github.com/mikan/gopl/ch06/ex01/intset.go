@@ -83,7 +83,7 @@ func (s *IntSet) Remove(x int) {
 	if word >= len(s.words) {
 		return
 	}
-	s.words[word] ^= 1 << bit // XOR
+	s.words[word] &^= 1 << bit // !XOR
 }
 
 // Clear removes all elements from the set

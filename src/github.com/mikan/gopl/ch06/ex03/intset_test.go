@@ -33,13 +33,13 @@ func TestIntersectWith(t *testing.T) {
 	}
 }
 
-func TestDifferenceWith(t *testing.T) {
+func TestSymmetricDifference(t *testing.T) {
 	var a, b IntSet
 	a.Add(1)
 	a.Add(2)
 	b.Add(2)
 	b.Add(3)
-	a.DifferenceWith(&b) // (1 2) ^ (2 3) = (1 3)
+	a.SymmetricDifference(&b) // (1 2) ^ (2 3) = (1 3)
 	if !(a.Has(1) && a.Has(3)) {
 		t.Errorf("unexpected content: ", a.String())
 	}
