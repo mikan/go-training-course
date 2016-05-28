@@ -11,22 +11,20 @@ import (
 
 // See bufio.Writer
 type CountWriter struct {
-	err   error
-	n     int
-	wr    io.Writer
-	count int64
+	writer io.Writer
+	count  int64
 }
 
 func CountingWriter(w io.Writer) (io.Writer, *int64) {
 	cw := &CountWriter{
-		count: 0,
-		wr:    w,
+		count:  0,
+		writer: w,
 	}
 	return cw, &cw.count
 }
 
 func (b *CountWriter) Write(p []byte) (nn int, err error) {
-	nn, err = b.wr.Write(p)
+	nn, err = b.writer.Write(p)
 	b.count += int64(nn)
 	return nn, err
 }
