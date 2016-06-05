@@ -3,6 +3,6 @@
 # Update GOPATH by current directory.
 # Usage: source gopath.sh
 
-export GOPATH="$(cd "$(dirname "${BASH_SOURCE:-$0}")"; pwd)"
+export GOPATH="$GOPATH:$(cd "$(dirname "${BASH_SOURCE:-$0}")"; pwd)"
 echo GOPATH updated to $GOPATH
 export PATH=$PATH:$GOPATH/bin
