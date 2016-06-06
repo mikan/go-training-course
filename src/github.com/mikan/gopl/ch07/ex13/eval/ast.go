@@ -1,5 +1,4 @@
-// Copyright © 2016 Alan A. A. Donovan & Brian W. Kernighan.
-// License: https://creativecommons.org/licenses/by-nc-sa/4.0/
+// Copyright 2016 mikan. All rights reserved.
 
 package eval
 
@@ -9,9 +8,9 @@ type Expr interface {
 	Eval(env Env) float64
 	// Check reports errors in this Expr and adds its Vars to the set.
 	Check(vars map[Var]bool) error
+	// EX13
+	String() string
 }
-
-//!+ast
 
 // A Var identifies a variable, e.g., x.
 type Var string
@@ -36,5 +35,3 @@ type call struct {
 	fn   string // one of "pow", "sin", "sqrt"
 	args []Expr
 }
-
-//!-ast

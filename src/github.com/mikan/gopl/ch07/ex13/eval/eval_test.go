@@ -1,5 +1,4 @@
-// Copyright © 2016 Alan A. A. Donovan & Brian W. Kernighan.
-// License: https://creativecommons.org/licenses/by-nc-sa/4.0/
+// Copyright 2016 mikan. All rights reserved.
 
 package eval
 
@@ -9,7 +8,6 @@ import (
 	"testing"
 )
 
-//!+Eval
 func TestEval(t *testing.T) {
 	tests := []struct {
 		expr string
@@ -49,32 +47,6 @@ func TestEval(t *testing.T) {
 	}
 }
 
-//!-Eval
-
-/*
-//!+output
-sqrt(A / pi)
-	map[A:87616 pi:3.141592653589793] => 167
-
-pow(x, 3) + pow(y, 3)
-	map[x:12 y:1] => 1729
-	map[x:9 y:10] => 1729
-
-5 / 9 * (F - 32)
-	map[F:-40] => -40
-	map[F:32] => 0
-	map[F:212] => 100
-//!-output
-
-// Additional outputs that don't appear in the book.
-
--1 - x
-	map[x:1] => -2
-
--1 + -x
-	map[x:1] => -2
-*/
-
 func TestErrors(t *testing.T) {
 	for _, test := range []struct{ expr, wantErr string }{
 		{"x % 2", "unexpected '%'"},
@@ -99,15 +71,3 @@ func TestErrors(t *testing.T) {
 		}
 	}
 }
-
-/*
-//!+errors
-x % 2               unexpected '%'
-math.Pi             unexpected '.'
-!true               unexpected '!'
-"hello"             unexpected '"'
-
-log(10)             unknown function "log"
-sqrt(1, 2)          call to sqrt has 2 args, want 1
-//!-errors
-*/

@@ -1,5 +1,4 @@
-// Copyright © 2016 Alan A. A. Donovan & Brian W. Kernighan.
-// License: https://creativecommons.org/licenses/by-nc-sa/4.0/
+// Copyright 2016 mikan. All rights reserved.
 
 package eval
 
@@ -7,6 +6,26 @@ import (
 	"bytes"
 	"fmt"
 )
+
+func (r literal) String() string {
+	return Format(r)
+}
+
+func (r Var) String() string {
+	return Format(r)
+}
+
+func (r unary) String() string {
+	return Format(r)
+}
+
+func (r binary) String() string {
+	return Format(r)
+}
+
+func (r call) String() string {
+	return Format(r)
+}
 
 // Format formats an expression as a string.
 // It does not attempt to remove unnecessary parens.

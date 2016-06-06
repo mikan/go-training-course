@@ -1,5 +1,4 @@
-// Copyright © 2016 Alan A. A. Donovan & Brian W. Kernighan.
-// License: https://creativecommons.org/licenses/by-nc-sa/4.0/
+// Copyright 2016 mikan. All rights reserved.
 
 package eval
 
@@ -9,7 +8,6 @@ import (
 	"testing"
 )
 
-//!+TestCoverage
 func TestCoverage(t *testing.T) {
 	var tests = []struct {
 		input string
@@ -44,5 +42,3 @@ func TestCoverage(t *testing.T) {
 		}
 	}
 }
-
-//!-TestCoverage
