@@ -9,7 +9,7 @@ import (
 	"math"
 	"net/http"
 
-	"github.com/mikan/gopl/ch07/ex16/eval"
+	"github.com/mikan/gopl/ch07/ex13/eval"
 )
 
 var ui = template.Must(template.New("calc").Parse(`
