@@ -42,12 +42,15 @@ func main() {
 			if !found { // not found
 				for {
 					strAdd := input.SingleLine(fmt.Sprintf("[Var] %s", string(v)))
+					if input.IsQuit(strAdd) {
+						return
+					}
 					add, parseError := strconv.ParseFloat(strAdd, 64)
 					if parseError == nil {
 						env[v] = add
 						break
 					}
-					fmt.Errorf("ERROR: %s\n", parseError) // continue
+					fmt.Fprintf(os.Stderr, "ERROR: %s\n", parseError) // continue
 				}
 			}
 		}
