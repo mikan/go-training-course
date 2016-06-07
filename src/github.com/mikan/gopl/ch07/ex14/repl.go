@@ -18,12 +18,12 @@ func main() {
 		if input.IsQuit(text) {
 			break
 		}
-		originalExpr, err := eval.Parse(text)
+		expr, err := eval.Parse(text)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "%v\n", err)
 			continue
 		}
-		got := fmt.Sprintf("%.6g", originalExpr.Eval(env))
+		got := fmt.Sprintf("%.6g", expr.Eval(env))
 		fmt.Printf("%s\n", got)
 	}
 }
