@@ -102,6 +102,11 @@ func main() {
 	history[len(history)-1].history = history
 	sort.Sort(history[len(history)-1])
 	printTracks(tracks)
+
+	// sort.Stable
+	fmt.Println("\nbyYear(sort.Stable):")
+	sort.Stable(byYear(tracks))
+	printTracks(tracks)
 }
 
 type customSort struct {
