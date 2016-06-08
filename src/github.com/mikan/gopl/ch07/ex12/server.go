@@ -29,7 +29,7 @@ th {
     background-color: silver;
 }
 tr {
-    style: text-align: left;
+    text-align: left;
 }
 </style>
 </head>
