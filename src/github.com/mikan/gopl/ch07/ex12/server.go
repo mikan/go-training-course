@@ -15,7 +15,7 @@ import (
 var itemList = template.Must(template.New("itemlist").Parse(`
 <html>
 <head>
-<title>GitHub Report</title>
+<title>CH07-EX12</title>
 <style>
 body {
     background-color: whitesmoke;
