@@ -30,7 +30,7 @@ func (x tableWidgetSort) Len() int { return len(x.t) }
 func (x tableWidgetSort) Less(i, j int) bool {
 	l := false
 	for _, s := range x.history {
-		l = s.less(x.t[i], x.t[j])
+		l = l || s.less(x.t[i], x.t[j])
 	}
 	return l
 }

@@ -13,17 +13,17 @@ import (
 
 type Track struct {
 	Title  string
-	Artist string
-	Album  string
+	Artist int
+	Album  int
 	Year   int
-	Length time.Duration
+	Length int
 }
 
 var tracks = []*Track{
-	{"Go", "Delilah", "From the Roots Up", 2012, length("3m38s")},
-	{"Go", "Moby", "Moby", 1992, length("3m37s")},
-	{"Go Ahead", "Alicia Keys", "As I Am", 2007, length("4m36s")},
-	{"Ready 2 Go", "Martin Solveig", "Smash", 2011, length("4m24s")},
+	{"A", 1, 1, 1, 1},
+	{"B", 1, 1, 2, 2},
+	{"C", 1, 2, 1, 3},
+	{"D", 2, 2, 2, 4},
 }
 
 func length(s string) time.Duration {
@@ -86,19 +86,19 @@ func main() {
 	printTracks(tracks)
 
 	// EX08
-	fmt.Println("\nTableWidget(1/3) Title:")
+	fmt.Println("\nTableWidget(1/3) Artist:")
 	var history []tableWidgetSort
-	history = append(history, tableWidgetSort{tracks, func(x, y *Track) bool { return x.Title < y.Title }, nil})
+	history = append(history, tableWidgetSort{tracks, func(x, y *Track) bool { return x.Artist < y.Artist }, nil})
 	history[0].history = history
 	sort.Sort(history[0])
 	printTracks(tracks)
-	fmt.Println("\nTableWidget(2/3) Year:")
-	history = append(history, tableWidgetSort{tracks, func(x, y *Track) bool { return x.Year < y.Year }, nil})
+	fmt.Println("\nTableWidget(2/3) Album:")
+	history = append(history, tableWidgetSort{tracks, func(x, y *Track) bool { return x.Album < y.Album }, nil})
 	history[len(history)-1].history = history
 	sort.Sort(history[len(history)-1])
 	printTracks(tracks)
-	fmt.Println("\nTableWidget(3/3) Title:")
-	history = append(history, tableWidgetSort{tracks, func(x, y *Track) bool { return x.Title < y.Title }, nil})
+	fmt.Println("\nTableWidget(3/3) Year:")
+	history = append(history, tableWidgetSort{tracks, func(x, y *Track) bool { return x.Year < y.Year }, nil})
 	history[len(history)-1].history = history
 	sort.Sort(history[len(history)-1])
 	printTracks(tracks)
@@ -128,7 +128,7 @@ func (x tableWidgetSort) Len() int { return len(x.t) }
 func (x tableWidgetSort) Less(i, j int) bool {
 	l := false
 	for _, s := range x.history {
-		l = s.less(x.t[i], x.t[j])
+		l = l || s.less(x.t[i], x.t[j])
 	}
 	return l
 }
