@@ -7,7 +7,6 @@ import "io"
 type Reader struct {
 	s        string
 	i        int64 // current reading index
-	prevRune int   // index of previous rune; or < 0
 }
 
 func (r *Reader) Read(p []byte) (n int, err error) {
@@ -17,7 +16,6 @@ func (r *Reader) Read(p []byte) (n int, err error) {
 	if r.i >= int64(len(r.s)) {
 		return 0, io.EOF
 	}
-	r.prevRune = -1
 	n = copy(p, r.s[r.i:])
 	r.i += int64(n)
 	return
@@ -26,5 +24,5 @@ func (r *Reader) Read(p []byte) (n int, err error) {
 // NewReader returns a new Reader reading from s.
 // It is similar to bytes.NewBufferString but more efficient and read-only.
 func NewReader(s string) *Reader {
-	return &Reader{s, 0, -1}
+	return &Reader{s, 0}
 }
