@@ -6,7 +6,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
-	"sort"
+	"strings"
 )
 
 var itemList = template.Must(template.New("itemlist").Parse(`
@@ -79,44 +79,41 @@ var tracks = []*Track{
 	{"Ready 2 Go", "Martin Solveig", "Smash", 2011, length("4m24s")},
 }
 
-var history []tableWidgetSort // Warning: thread shared
-
 func main() {
-	history = append(history, tableWidgetSort{tracks, func(x, y *Track) bool { return x.Title < y.Title }, nil})
-	history[0].history = history
 	http.HandleFunc("/", list)
 	log.Fatal(http.ListenAndServe("localhost:8000", nil))
 }
 
 func list(w http.ResponseWriter, req *http.Request) {
-	by := req.URL.Query().Get("by")
-	var sortBy tableWidgetSort
+	bys := req.URL.Query().Get("by")
 	err := false
-	switch by {
-	case "title":
-		sortBy = tableWidgetSort{tracks, func(x, y *Track) bool { return x.Title < y.Title }, nil}
-	case "artist":
-		sortBy = tableWidgetSort{tracks, func(x, y *Track) bool { return x.Artist < y.Artist }, nil}
-	case "album":
-		sortBy = tableWidgetSort{tracks, func(x, y *Track) bool { return x.Album < y.Album }, nil}
-	case "year":
-		sortBy = tableWidgetSort{tracks, func(x, y *Track) bool { return x.Year < y.Year }, nil}
-	case "length":
-		sortBy = tableWidgetSort{tracks, func(x, y *Track) bool { return x.Length < y.Length }, nil}
-	default:
-		err = true
+	var list []lessFunc
+	for _, by := range strings.Split(bys, ",") {
+		switch by {
+		case "title":
+			list = append(list, func(c1, c2 *Track) bool { return c1.Title < c2.Title })
+		case "artist":
+			list = append(list, func(c1, c2 *Track) bool { return c1.Artist < c2.Artist })
+		case "album":
+			list = append(list, func(c1, c2 *Track) bool { return c1.Album < c2.Album })
+		case "year":
+			list = append(list, func(c1, c2 *Track) bool { return c1.Year < c2.Year })
+		case "length":
+			list = append(list, func(c1, c2 *Track) bool { return c1.Length < c2.Length })
+		default:
+			err = true
+		}
 	}
+
 	if !err {
-		history = append(history, sortBy)
-		history[len(history)-1].history = history
-		sort.Sort(history[len(history)-1])
+		OrderedBy(list).Sort(tracks)
 	}
 
 	var result ItemResult
 	result.TotalCount = len(tracks)
 	result.Items = tracks
-	if err && by != "" {
-		result.Error = "Unknown target: " + by
+	if err && bys != "" {
+		result.Error = "Unknown target: " + bys
 	}
 	if err := itemList.Execute(w, result); err != nil {
 		log.Fatal(err)

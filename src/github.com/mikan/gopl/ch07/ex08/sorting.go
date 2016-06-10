@@ -8,7 +8,6 @@ import (
 	"os"
 	"sort"
 	"text/tabwriter"
-	"time"
 )
 
 type Track struct {
@@ -24,14 +23,6 @@ var tracks = []*Track{
 	{"B", 1, 1, 2, 2},
 	{"C", 1, 2, 1, 3},
 	{"D", 2, 2, 2, 4},
-}
-
-func length(s string) time.Duration {
-	d, err := time.ParseDuration(s)
-	if err != nil {
-		panic(s)
-	}
-	return d
 }
 
 func printTracks(tracks []*Track) {
@@ -86,21 +77,9 @@ func main() {
 	printTracks(tracks)
 
 	// EX08
-	fmt.Println("\nTableWidget(1/3) Artist:")
-	var history []tableWidgetSort
-	history = append(history, tableWidgetSort{tracks, func(x, y *Track) bool { return x.Artist < y.Artist }, nil})
-	history[0].history = history
-	sort.Sort(history[0])
-	printTracks(tracks)
-	fmt.Println("\nTableWidget(2/3) Album:")
-	history = append(history, tableWidgetSort{tracks, func(x, y *Track) bool { return x.Album < y.Album }, nil})
-	history[len(history)-1].history = history
-	sort.Sort(history[len(history)-1])
-	printTracks(tracks)
-	fmt.Println("\nTableWidget(3/3) Year:")
-	history = append(history, tableWidgetSort{tracks, func(x, y *Track) bool { return x.Year < y.Year }, nil})
-	history[len(history)-1].history = history
-	sort.Sort(history[len(history)-1])
+	fmt.Println("\nTableWidget Artist -> Album:")
+	OrderedBy(func(c1, c2 *Track) bool { return c1.Artist < c2.Artist },
+		func(c1, c2 *Track) bool { return c1.Album < c2.Album }).Sort(tracks)
 	printTracks(tracks)
 
 	// sort.Stable
@@ -118,21 +97,46 @@ func (x customSort) Len() int           { return len(x.t) }
 func (x customSort) Less(i, j int) bool { return x.less(x.t[i], x.t[j]) }
 func (x customSort) Swap(i, j int)      { x.t[i], x.t[j] = x.t[j], x.t[i] }
 
-type tableWidgetSort struct {
-	t       []*Track
-	less    func(x, y *Track) bool
-	history []tableWidgetSort
+type multiSorter struct {
+	changes []*Track
+	less    []lessFunc
 }
 
-func (x tableWidgetSort) Len() int { return len(x.t) }
-func (x tableWidgetSort) Less(i, j int) bool {
-	l := false
-	for _, s := range x.history {
-		l = l || s.less(x.t[i], x.t[j])
-	}
-	return l
+type lessFunc func(p1, p2 *Track) bool
+
+func (ms *multiSorter) Sort(changes []*Track) {
+	ms.changes = changes
+	sort.Sort(ms)
 }
-func (x tableWidgetSort) Swap(i, j int) { x.t[i], x.t[j] = x.t[j], x.t[i] }
+
+func OrderedBy(less ...lessFunc) *multiSorter {
+	return &multiSorter{
+		less: less,
+	}
+}
+
+func (ms *multiSorter) Len() int {
+	return len(ms.changes)
+}
+
+func (ms *multiSorter) Swap(i, j int) {
+	ms.changes[i], ms.changes[j] = ms.changes[j], ms.changes[i]
+}
+
+func (ms *multiSorter) Less(i, j int) bool {
+	p, q := ms.changes[i], ms.changes[j]
+	var k int
+	for k = 0; k < len(ms.less)-1; k++ {
+		less := ms.less[k]
+		switch {
+		case less(p, q):
+			return true
+		case less(q, p):
+			return false
+		}
+	}
+	return ms.less[k](p, q)
+}
 
 func init() {
 	values := []int{3, 1, 4, 1}

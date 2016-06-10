@@ -2,7 +2,10 @@
 
 package main
 
-import "time"
+import (
+	"time"
+	"sort"
+)
 
 type Track struct {
 	Title  string
@@ -20,18 +23,43 @@ func length(s string) time.Duration {
 	return d
 }
 
-type tableWidgetSort struct {
-	t       []*Track
-	less    func(x, y *Track) bool
-	history []tableWidgetSort
+type multiSorter struct {
+	changes []*Track
+	less    []lessFunc
 }
 
-func (x tableWidgetSort) Len() int { return len(x.t) }
-func (x tableWidgetSort) Less(i, j int) bool {
-	l := false
-	for _, s := range x.history {
-		l = l || s.less(x.t[i], x.t[j])
-	}
-	return l
+type lessFunc func(p1, p2 *Track) bool
+
+func (ms *multiSorter) Sort(changes []*Track) {
+	ms.changes = changes
+	sort.Sort(ms)
 }
-func (x tableWidgetSort) Swap(i, j int) { x.t[i], x.t[j] = x.t[j], x.t[i] }
+
+func OrderedBy(less []lessFunc) *multiSorter {
+	return &multiSorter{
+		less: less,
+	}
+}
+
+func (ms *multiSorter) Len() int {
+	return len(ms.changes)
+}
+
+func (ms *multiSorter) Swap(i, j int) {
+	ms.changes[i], ms.changes[j] = ms.changes[j], ms.changes[i]
+}
+
+func (ms *multiSorter) Less(i, j int) bool {
+	p, q := ms.changes[i], ms.changes[j]
+	var k int
+	for k = 0; k < len(ms.less)-1; k++ {
+		less := ms.less[k]
+		switch {
+		case less(p, q):
+			return true
+		case less(q, p):
+			return false
+		}
+	}
+	return ms.less[k](p, q)
+}
