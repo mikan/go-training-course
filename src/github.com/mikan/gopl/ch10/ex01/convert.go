@@ -21,7 +21,7 @@ var f *string = flag.String("f", "jpeg", "format to convert")
 func main() {
 	flag.Parse()
 	if err := toAnyFormat(os.Stdin, os.Stdout, *f); err != nil {
-		fmt.Fprintf(os.Stderr, "jpeg: %v\n", err)
+		fmt.Fprintf(os.Stderr, "%s: %v\n", os.Args[0], err)
 		os.Exit(1)
 	}
 }
