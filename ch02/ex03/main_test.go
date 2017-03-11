@@ -3,9 +3,10 @@
 package main
 
 import (
+	"testing"
+
 	"github.com/mikan/go-training-course/ch02/ex03/popcount"
 	"github.com/mikan/go-training-course/ch02/ex03/popcount2"
-	"testing"
 )
 
 func TestAllPopCounts(t *testing.T) {

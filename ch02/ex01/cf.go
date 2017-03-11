@@ -5,9 +5,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/mikan/go-training-course/ch02/ex01/tempconv"
 	"os"
 	"strconv"
+
+	"github.com/mikan/go-training-course/ch02/ex01/tempconv"
 )
 
 func main() {

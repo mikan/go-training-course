@@ -4,9 +4,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/mikan/libmikan/input"
 	"io"
 	"io/ioutil"
+
+	"github.com/mikan/libmikan/input"
 )
 
 // See bufio.Writer
