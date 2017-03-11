@@ -9,6 +9,9 @@ import (
 
 // reverse reverses an slice of bytes in place.
 func reverse(s []byte) {
+
+	// Bad answer. Use decodeRune and rotate
+
 	for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {
 		if s[i] > unicode.MaxASCII {
 			// exchange triple-byte rune
