@@ -41,13 +41,13 @@ OS:
 
 ##### 現在位置を GOPATH にする
 
-BASH の場合 ([完全版](gopath.sh)):
+BASH の場合:
 
 ```bash
 export GOPATH="$(cd "$(dirname "${BASH_SOURCE:-$0}")"; pwd)"
 ```
 
-バッチファイルの場合 ([完全版](gopath.bat)):
+バッチファイルの場合:
 
 ```
 for /f "delims=" %%a in ('@cd') do setx GOPATH %%a
