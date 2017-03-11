@@ -8,9 +8,9 @@ import (
 	"io/ioutil"
 	"log"
 
-	"strings"
 	"github.com/mikan/go-training-course/ch04/ex12/xkcd"
 	"github.com/mikan/libmikan/input"
+	"strings"
 )
 
 var nilComic xkcd.Comic

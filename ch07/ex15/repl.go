@@ -9,8 +9,8 @@ import (
 
 	"strconv"
 
-	"github.com/mikan/libmikan/input"
 	"github.com/mikan/go-training-course/ch07/ex13/eval"
+	"github.com/mikan/libmikan/input"
 )
 
 func main() {

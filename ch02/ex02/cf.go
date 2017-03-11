@@ -9,9 +9,9 @@ import (
 	"os"
 	"strconv"
 
+	"github.com/mikan/go-training-course/ch02/ex01/tempconv"
 	"github.com/mikan/go-training-course/ch02/ex02/lengthconv"
 	"github.com/mikan/go-training-course/ch02/ex02/weightconv"
-	"github.com/mikan/go-training-course/ch02/ex01/tempconv"
 )
 
 func main() {

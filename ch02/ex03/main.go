@@ -4,9 +4,9 @@ package main
 
 import (
 	"fmt"
-	"time"
-	"github.com/mikan/go-training-course/ch02/ex03/popcount2"
 	"github.com/mikan/go-training-course/ch02/ex03/popcount"
+	"github.com/mikan/go-training-course/ch02/ex03/popcount2"
+	"time"
 )
 
 func main() {

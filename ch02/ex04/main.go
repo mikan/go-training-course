@@ -5,10 +5,10 @@ package main
 // Depends on popcount package in the ex02
 import (
 	"fmt"
-	"time"
+	"github.com/mikan/go-training-course/ch02/ex03/popcount"
 	"github.com/mikan/go-training-course/ch02/ex03/popcount2"
 	"github.com/mikan/go-training-course/ch02/ex04/popcount3"
-	"github.com/mikan/go-training-course/ch02/ex03/popcount"
+	"time"
 )
 
 func main() {

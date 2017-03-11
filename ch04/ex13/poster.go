@@ -11,9 +11,9 @@ import (
 
 	"net/http"
 
-	"github.com/mikan/libmikan/input"
 	"github.com/mikan/go-training-course/ch04/ex13/omdb"
 	"github.com/mikan/libmikan/crypt"
+	"github.com/mikan/libmikan/input"
 )
 
 var encryptedAPIKey = []byte{46, 143, 219, 179, 208, 231, 113, 28, 238, 20, 156, 16, 11, 143, 167, 225}

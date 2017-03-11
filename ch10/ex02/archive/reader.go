@@ -3,12 +3,12 @@
 package archive
 
 import (
-	"io"
-	"errors"
-	"io/ioutil"
 	"bytes"
-	"strings"
+	"errors"
 	"fmt"
+	"io"
+	"io/ioutil"
+	"strings"
 )
 
 type Reader interface {

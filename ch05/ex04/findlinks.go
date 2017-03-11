@@ -12,8 +12,8 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"golang.org/x/net/html"
 	"github.com/mikan/libmikan/input"
+	"golang.org/x/net/html"
 )
 
 func main() {

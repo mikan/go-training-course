@@ -5,8 +5,8 @@ package main
 import "io"
 
 type Reader struct {
-	s        string
-	i        int64 // current reading index
+	s string
+	i int64 // current reading index
 }
 
 func (r *Reader) Read(p []byte) (n int, err error) {

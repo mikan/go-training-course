@@ -3,8 +3,8 @@
 package main
 
 import (
-	"time"
 	"sort"
+	"time"
 )
 
 type Track struct {

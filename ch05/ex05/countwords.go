@@ -8,8 +8,8 @@ import (
 	"net/http"
 	"strings"
 
-	"golang.org/x/net/html"
 	"github.com/mikan/libmikan/input"
+	"golang.org/x/net/html"
 )
 
 func main() {

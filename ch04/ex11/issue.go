@@ -16,9 +16,9 @@ import (
 
 	"strconv"
 
+	"github.com/mikan/go-training-course/ch04/ex11/github"
 	"github.com/mikan/libmikan/input"
 	"github.com/mikan/libmikan/net"
-	"github.com/mikan/go-training-course/ch04/ex11/github"
 )
 
 func main() {

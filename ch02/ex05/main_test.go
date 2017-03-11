@@ -5,8 +5,8 @@ package main
 import (
 	"testing"
 
-	"github.com/mikan/go-training-course/ch02/ex05/popcount4"
 	"github.com/mikan/go-training-course/ch02/ex03/popcount"
+	"github.com/mikan/go-training-course/ch02/ex05/popcount4"
 )
 
 func TestAllPopCounts(t *testing.T) {
