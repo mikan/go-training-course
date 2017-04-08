@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"os"
 	"strings"
-	"text/template"
+	"html/template"
 
 	"github.com/mikan/go-training-course/ch04/ex14/github"
 )
