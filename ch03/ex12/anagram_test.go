@@ -14,6 +14,6 @@ func TestAnagram(t *testing.T) {
 
 func verify(t *testing.T, expected, actual bool) {
 	if expected != actual {
-		t.Errorf("expected %s but got %s", expected, actual)
+		t.Errorf("expected %t but got %t", expected, actual)
 	}
 }

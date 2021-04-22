@@ -13,6 +13,8 @@ const (
 	AbsoluteZeroC Celsius = -273.15
 	FreezingC     Celsius = 0
 	BoilingC      Celsius = 100
+	FreezingK             = Kelvin(AbsoluteZeroC) * -1
+	BoilingK              = FreezingK + Kelvin(BoilingC)
 )
 
 func (c Celsius) String() string    { return fmt.Sprintf("%g℃", c) }

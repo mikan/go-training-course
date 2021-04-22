@@ -42,6 +42,6 @@ func TestMin2(t *testing.T) {
 
 func checkEquals(t *testing.T, expected, actual int) {
 	if expected != actual {
-		t.Errorf("expected %s but got %s", expected, actual)
+		t.Errorf("expected %d but got %d", expected, actual)
 	}
 }
