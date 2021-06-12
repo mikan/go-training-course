@@ -7,8 +7,6 @@ import (
 	"image/png"
 	"log"
 	"net/http"
-
-	"github.com/mikan/libmikan/conv"
 )
 
 const (
@@ -22,9 +20,9 @@ const (
 // http://localhost:8000/?x=-0.11&y=-0.9&z=0.01 (Top of the fractal with ultra zoom)
 func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		x := conv.SafeAtoF(r.FormValue("x"), defaultX)
-		y := conv.SafeAtoF(r.FormValue("y"), defaultY)
-		z := conv.SafeAtoF(r.FormValue("z"), defaultZ)
+		x := SafeAtoF(r.FormValue("x"), defaultX)
+		y := SafeAtoF(r.FormValue("y"), defaultY)
+		z := SafeAtoF(r.FormValue("z"), defaultZ)
 		w.Header().Set("Content-Type", "image/png")
 		png.Encode(w, draw(x, y, z))
 	})

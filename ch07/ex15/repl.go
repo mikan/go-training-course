@@ -10,14 +10,13 @@ import (
 	"strconv"
 
 	"github.com/mikan/go-training-course/ch07/ex13/eval"
-	"github.com/mikan/libmikan/input"
 )
 
 func main() {
 	env := eval.Env{"pi": math.Pi}
 	for {
-		text := input.SingleLine("expr")
-		if input.IsQuit(text) {
+		text := SingleLine("expr")
+		if IsQuit(text) {
 			break
 		}
 		expr, err := eval.Parse(text)
@@ -41,8 +40,8 @@ func main() {
 			}
 			if !found { // not found
 				for {
-					strAdd := input.SingleLine(fmt.Sprintf("[Var] %s", string(v)))
-					if input.IsQuit(strAdd) {
+					strAdd := SingleLine(fmt.Sprintf("[Var] %s", string(v)))
+					if IsQuit(strAdd) {
 						return
 					}
 					add, parseError := strconv.ParseFloat(strAdd, 64)

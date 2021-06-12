@@ -7,11 +7,9 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
-
 	"strings"
 
 	"github.com/mikan/go-training-course/ch04/ex12/xkcd"
-	"github.com/mikan/libmikan/input"
 )
 
 var nilComic xkcd.Comic
@@ -30,7 +28,7 @@ func main() {
 
 	// Fetch all json files
 	var files []string
-	if input.Word("Do you want to retrive index? {y,n}") == "y" {
+	if Word("Do you want to retrive index? {y,n}") == "y" {
 		var err error
 		files, err = xkcd.FetchAll(last)
 		if err != nil {
@@ -43,8 +41,8 @@ func main() {
 
 	// Main loop
 	for {
-		q := input.SingleLine("Query (or \"quit\")")
-		if input.IsQuit(q) {
+		q := SingleLine("Query (or \"quit\")")
+		if IsQuit(q) {
 			return
 		}
 		ch := make(chan xkcd.Comic)

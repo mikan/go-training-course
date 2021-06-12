@@ -5,8 +5,6 @@ package main
 import (
 	"fmt"
 	"strings"
-
-	"github.com/mikan/libmikan/input"
 )
 
 func anagram(s1, s2 string) bool {
@@ -31,12 +29,12 @@ func anagram(s1, s2 string) bool {
 
 func main() {
 	for {
-		s1 := input.SingleLine("Input s1")
-		if input.IsQuit(s1) {
+		s1 := SingleLine("Input s1")
+		if IsQuit(s1) {
 			return
 		}
-		s2 := input.SingleLine("Input s2")
-		if input.IsQuit(s2) {
+		s2 := SingleLine("Input s2")
+		if IsQuit(s2) {
 			return
 		}
 		fmt.Printf("anagram(s1, s2) = %t\n", anagram(s1, s2))

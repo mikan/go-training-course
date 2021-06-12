@@ -5,10 +5,7 @@ package main
 import (
 	"bytes"
 	"fmt"
-
 	"strings"
-
-	"github.com/mikan/libmikan/input"
 )
 
 // comma inserts commas in a non-negative decimal integer string.
@@ -36,8 +33,8 @@ func comma(s string) string {
 
 func main() {
 	for {
-		n := input.Word("Input number")
-		if input.IsQuit(n) {
+		n := Word("Input number")
+		if IsQuit(n) {
 			return
 		}
 		fmt.Println(comma(n))

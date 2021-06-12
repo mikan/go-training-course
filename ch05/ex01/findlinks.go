@@ -12,12 +12,11 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/mikan/libmikan/input"
 	"golang.org/x/net/html"
 )
 
 func main() {
-	doc, err := html.Parse(fetch(input.Word("Input URL")))
+	doc, err := html.Parse(fetch(Word("Input URL")))
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "findlinks: %v\n", err)
 		os.Exit(1)

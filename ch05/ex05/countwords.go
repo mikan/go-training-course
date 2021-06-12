@@ -8,12 +8,11 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/mikan/libmikan/input"
 	"golang.org/x/net/html"
 )
 
 func main() {
-	words, images, err := CountWordsAndImages(input.Word("Input URL"))
+	words, images, err := CountWordsAndImages(Word("Input URL"))
 	if err != nil {
 		fmt.Errorf("parseing HTML: %s", err)
 		return

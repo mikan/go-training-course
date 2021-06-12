@@ -12,8 +12,6 @@ import (
 	"net/http"
 
 	"github.com/mikan/go-training-course/ch04/ex13/omdb"
-	"github.com/mikan/libmikan/crypt"
-	"github.com/mikan/libmikan/input"
 )
 
 var encryptedAPIKey = []byte{46, 143, 219, 179, 208, 231, 113, 28, 238, 20, 156, 16, 11, 143, 167, 225}
@@ -28,8 +26,8 @@ func main() {
 
 	// Main loop
 	for {
-		query := input.SingleLine("Input query")
-		if input.IsQuit(query) {
+		query := SingleLine("Input query")
+		if IsQuit(query) {
 			return
 		}
 		m := handleSearch(query)
@@ -38,8 +36,8 @@ func main() {
 			continue
 		}
 		fmt.Println("Found: " + m.Title + " (" + m.Year + ")")
-		if input.Word("Donload a poster? {y,n}") == "y" {
-			if input.Word("Select API {1,2} (1=Poster API, 2=Poster Element)") == "1" {
+		if Word("Donload a poster? {y,n}") == "y" {
+			if Word("Select API {1,2} (1=Poster API, 2=Poster Element)") == "1" {
 				if apiKey == "" {
 					apiKey = handleAPIKeyInput()
 					if apiKey == "" {
@@ -67,11 +65,11 @@ func handleSearch(query string) omdb.Movie {
 
 func handleAPIKeyInput() string {
 	for {
-		password := input.Word("Input Aikotoba")
-		if input.IsQuit(password) {
+		password := Word("Input Aikotoba")
+		if IsQuit(password) {
 			return ""
 		}
-		apiKey, _ := crypt.Decrypt(encryptedAPIKey, password)
+		apiKey, _ := Decrypt(encryptedAPIKey, password)
 		if len(apiKey) == 8 {
 			return apiKey // correct
 		}
@@ -82,7 +80,7 @@ func handleAPIKeyInput() string {
 // Fetch poster from Poster API
 func handlePoster(id, apiKey string) {
 	path := os.TempDir()
-	pathInput := input.SingleLine("Save to [" + path + "]")
+	pathInput := SingleLine("Save to [" + path + "]")
 	if pathInput != "" {
 		path = pathInput
 	}
@@ -105,7 +103,7 @@ func handlePoster2(id, poster string) {
 		return
 	}
 	path := os.TempDir()
-	pathInput := input.SingleLine("Save to [" + path + "]")
+	pathInput := SingleLine("Save to [" + path + "]")
 	if pathInput != "" {
 		path = pathInput
 	}

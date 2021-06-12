@@ -6,11 +6,9 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
-
-	"github.com/mikan/libmikan/input"
 )
 
-// See bufio.Writer
+// CountWriter implements bufio.Writer
 type CountWriter struct {
 	writer io.Writer
 	count  int64
@@ -32,7 +30,7 @@ func (b *CountWriter) Write(p []byte) (nn int, err error) {
 
 func main() {
 	w, c := CountingWriter(ioutil.Discard)
-	input := input.SingleLine("Text")
+	input := SingleLine("Text")
 	n1, _ := w.Write([]byte(input))
 	n2, _ := w.Write([]byte(input))
 	n3, _ := w.Write([]byte(input))

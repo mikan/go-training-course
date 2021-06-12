@@ -2,16 +2,12 @@
 
 package main
 
-import (
-	"regexp"
-
-	"github.com/mikan/libmikan/input"
-)
+import "regexp"
 
 func main() {
 	for {
-		text := input.SingleLine("Text")
-		if input.IsQuit(text) {
+		text := SingleLine("Text")
+		if IsQuit(text) {
 			break
 		}
 		println(expand(text, func(s string) string { return "/* " + s + " */" }))

@@ -4,10 +4,7 @@ package main
 
 import (
 	"fmt"
-
 	"strings"
-
-	"github.com/mikan/libmikan/input"
 )
 
 const DECIMAL_POINT = "."
@@ -38,8 +35,8 @@ func comma(s string) string {
 
 func main() {
 	for {
-		n := input.Word("Input number")
-		if input.IsQuit(n) {
+		n := Word("Input number")
+		if IsQuit(n) {
 			return
 		}
 		fmt.Println(comma(n))

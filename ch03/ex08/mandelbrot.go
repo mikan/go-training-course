@@ -4,6 +4,7 @@
 package main
 
 import (
+	"fmt"
 	"image"
 	"image/color"
 	"image/png"
@@ -11,10 +12,6 @@ import (
 	"math/cmplx"
 	"os"
 	"strconv"
-
-	"fmt"
-
-	"github.com/mikan/libmikan/conv"
 )
 
 // Parameter samples...
@@ -42,28 +39,28 @@ func main() {
 	i := 200
 	switch len(os.Args[1:]) {
 	case 1: // t
-		t = conv.SafeRangedAtoI(os.Args[4], t, 1, 5)
+		t = SafeRangedAtoI(os.Args[4], t, 1, 5)
 	case 2: // z t
-		z = conv.SafeAtoF(os.Args[3], z)
-		t = conv.SafeRangedAtoI(os.Args[4], t, 1, 5)
+		z = SafeAtoF(os.Args[3], z)
+		t = SafeRangedAtoI(os.Args[4], t, 1, 5)
 	case 4: // x y z t
-		x = conv.SafeAtoF(os.Args[1], x)
-		y = conv.SafeAtoF(os.Args[2], y)
-		z = conv.SafeAtoF(os.Args[3], z)
-		t = conv.SafeRangedAtoI(os.Args[4], t, 1, 5)
+		x = SafeAtoF(os.Args[1], x)
+		y = SafeAtoF(os.Args[2], y)
+		z = SafeAtoF(os.Args[3], z)
+		t = SafeRangedAtoI(os.Args[4], t, 1, 5)
 	case 5: // x y z t s
-		x = conv.SafeAtoF(os.Args[1], x)
-		y = conv.SafeAtoF(os.Args[2], y)
-		z = conv.SafeAtoF(os.Args[3], z)
-		t = conv.SafeRangedAtoI(os.Args[4], t, 1, 5)
-		s = conv.SafeAtoI(os.Args[5], s)
+		x = SafeAtoF(os.Args[1], x)
+		y = SafeAtoF(os.Args[2], y)
+		z = SafeAtoF(os.Args[3], z)
+		t = SafeRangedAtoI(os.Args[4], t, 1, 5)
+		s = SafeAtoI(os.Args[5], s)
 	case 6: // x y z t s i
-		x = conv.SafeAtoF(os.Args[1], x)
-		y = conv.SafeAtoF(os.Args[2], y)
-		z = conv.SafeAtoF(os.Args[3], z)
-		t = conv.SafeRangedAtoI(os.Args[4], t, 1, 5)
-		s = conv.SafeAtoI(os.Args[5], s)
-		i = conv.SafeAtoI(os.Args[6], s)
+		x = SafeAtoF(os.Args[1], x)
+		y = SafeAtoF(os.Args[2], y)
+		z = SafeAtoF(os.Args[3], z)
+		t = SafeRangedAtoI(os.Args[4], t, 1, 5)
+		s = SafeAtoI(os.Args[5], s)
+		i = SafeAtoI(os.Args[6], s)
 	default:
 		log.Fatal("Usage: " + os.Args[0] + " x y z n (1=C128, 2=C64, 3=big.Float, 4=big.Rat) s i")
 	}

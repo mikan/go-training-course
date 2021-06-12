@@ -12,13 +12,10 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strconv"
 	"strings"
 
-	"strconv"
-
 	"github.com/mikan/go-training-course/ch04/ex11/github"
-	"github.com/mikan/libmikan/input"
-	"github.com/mikan/libmikan/net"
 )
 
 func main() {
@@ -33,21 +30,21 @@ func main() {
 	}
 
 	// Input login credential
-	var cred net.Credential
-	cred.Username = input.Word("Username")
-	cred.Password = input.Word("Password")
+	var cred github.Credential
+	cred.Username = Word("Username")
+	cred.Password = Word("Password")
 
 	// Main loop
 	for {
-		switch input.Word("Input {c,r,u,d,p}") {
+		switch Word("Input {c,r,u,d,p}") {
 		case "c":
 			create(repo, &cred)
 		case "r":
-			read(repo, input.Word("Input issue num"))
+			read(repo, Word("Input issue num"))
 		case "u":
-			update(repo, input.Word("Input issue num"), &cred)
+			update(repo, Word("Input issue num"), &cred)
 		case "d":
-			del(repo, input.Word("Input issue num"), &cred)
+			del(repo, Word("Input issue num"), &cred)
 		case "p":
 			printIssues(searchIssues([]string{github.RepoPrefix + repo}))
 		default:
@@ -57,14 +54,14 @@ func main() {
 }
 
 // Handles "c" operation.
-func create(repo string, cred *net.Credential) {
+func create(repo string, cred *github.Credential) {
 	var edit github.IssueRequest
-	edit.Title = input.SingleLine("Input title")
-	edit.Body = input.MultiLine("Input body")
+	edit.Title = SingleLine("Input title")
+	edit.Body = MultiLine("Input body")
 
 	// Confirmation
-	if input.Word("Are you sure to create? {y,n}") != "y" {
-		fmt.Println("Create aboted.")
+	if Word("Are you sure to create? {y,n}") != "y" {
+		fmt.Println("Create aborted.")
 		return
 	}
 
@@ -82,7 +79,7 @@ func read(repo, id string) {
 }
 
 // Handles "u" operation.
-func update(repo, id string, cred *net.Credential) {
+func update(repo, id string, cred *github.Credential) {
 	// Retrieve and display the current information
 	issue := getIssue(repo, id)
 	var assignee string
@@ -98,15 +95,15 @@ func update(repo, id string, cred *net.Credential) {
 
 	// Editing type selection
 	var edit github.IssueRequest
-	switch input.Word("Which do you want to change? {t,s,b,a}") {
+	switch Word("Which do you want to change? {t,s,b,a}") {
 	case "t":
-		edit.Title = input.SingleLine("Input title")
+		edit.Title = SingleLine("Input title")
 	case "s":
-		edit.State = input.Word("Input state {open,closed}")
+		edit.State = Word("Input state {open,closed}")
 	case "b":
-		edit.Body = input.MultiLine("Input body")
+		edit.Body = MultiLine("Input body")
 	case "a":
-		edit.Assignee = input.Word("Input assignee")
+		edit.Assignee = Word("Input assignee")
 	default:
 		fmt.Println("Update aboted.")
 		return
@@ -135,7 +132,7 @@ func update(repo, id string, cred *net.Credential) {
 	fmt.Println("Assignee: " + modAssignee)
 
 	// Confirmation
-	if input.Word("Are you sure to change? {y,n}") != "y" {
+	if Word("Are you sure to change? {y,n}") != "y" {
 		fmt.Println("Update aboted.")
 		return
 	}
@@ -148,7 +145,7 @@ func update(repo, id string, cred *net.Credential) {
 }
 
 // Handles "d" operation.
-func del(repo, id string, cred *net.Credential) {
+func del(repo, id string, cred *github.Credential) {
 	// Retrieve & check condition.
 	issue := getIssue(repo, id)
 	if issue.State == "closed" {
@@ -157,7 +154,7 @@ func del(repo, id string, cred *net.Credential) {
 	}
 
 	// Confirmation
-	if input.Word("Are you shure to close #"+id+"? {y,n}") != "y" {
+	if Word("Are you shure to close #"+id+"? {y,n}") != "y" {
 		fmt.Println("Close aboted.")
 		return
 	}

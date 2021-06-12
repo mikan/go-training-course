@@ -9,12 +9,10 @@ import (
 	"fmt"
 	"net/http"
 	"strings"
-
-	"github.com/mikan/libmikan/net"
 )
 
 // EditIssue edits a specified issue.
-func EditIssue(repo, number string, cred *net.Credential, edit *IssueRequest) error {
+func EditIssue(repo, number string, cred *Credential, edit *IssueRequest) error {
 	url := IssueURL
 	url = strings.Replace(url, RepoParam, repo, 1)
 	url = strings.Replace(url, NumberParam, number, 1)
@@ -24,7 +22,7 @@ func EditIssue(repo, number string, cred *net.Credential, edit *IssueRequest) er
 	if err != nil {
 		return err
 	}
-	req.Header.Add(net.BasicAuth(cred))
+	req.Header.Add(BasicAuth(cred))
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {

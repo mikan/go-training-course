@@ -8,14 +8,13 @@ import (
 	"os"
 
 	"github.com/mikan/go-training-course/ch07/ex14/eval"
-	"github.com/mikan/libmikan/input"
 )
 
 func main() {
 	env := eval.Env{"pi": math.Pi}
 	for {
-		text := input.SingleLine("expr")
-		if input.IsQuit(text) {
+		text := SingleLine("expr")
+		if IsQuit(text) {
 			break
 		}
 		expr, err := eval.Parse(text)
