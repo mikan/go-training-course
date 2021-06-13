@@ -25,9 +25,3 @@ func Normalize(msg string) string {
 	msg = strings.ToLower(msg)
 	return msg
 }
-
-// IsQuit returns whether command is quit (or exit).
-func IsQuit(msg string) bool {
-	text := Normalize(msg)
-	return text == "quit" || text == "exit" || text == "42"
-}
