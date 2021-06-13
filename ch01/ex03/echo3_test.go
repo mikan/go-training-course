@@ -4,8 +4,6 @@ package main
 
 import "testing"
 
-const loopCount = 10000000
-
 var sampleInput = []string{"foo1", "foo2", "foo3", "foo4", "foo5", "foo6"}
 
 func BenchmarkRun1(b *testing.B) {
@@ -21,11 +19,11 @@ func BenchmarkRun2(b *testing.B) {
 }
 
 // Result:
-// go test github.com/mikan/gopl/ch01/ex03 -bench=.
+// go test github.com/mikan/gopl/ex01/ex03 -bench=.
 // PASS
 // BenchmarkRun1-4  1000000              1342 ns/op
 // BenchmarkRun2-4  3000000               424 ns/op
-// ok      github.com/mikan/gopl/ch01/ex03 3.984s
+// ok      github.com/mikan/gopl/ex01/ex03 3.984s
 
 func TestEcho3(t *testing.T) {
 	run1(nil)
