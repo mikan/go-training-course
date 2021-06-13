@@ -18,9 +18,9 @@ func main() {
 	go pingPong(pong, ping)
 	ping <- 1
 	<-time.NewTimer(1 * time.Second).C
-	fmt.Println(<-pong, "ping/sec")
+	fmt.Println(<-pong/2, "ping/sec")
 	// Result on MacBook Early 2016:
-	// 2941656 ping/sec
-	// 2541592 ping/sec
-	// 2539796 ping/sec
+	// 1454679 ping/sec
+	// 1399950 ping/sec
+	// 1460891 ping/sec
 }
