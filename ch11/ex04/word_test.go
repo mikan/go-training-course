@@ -10,10 +10,12 @@ import (
 
 // randomPalindrome は、擬似乱数生成器 rng から長さと内容が計算された回文を返します。
 func randomPalindrome(rng *rand.Rand) string {
+	src := []rune("abc !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~")
 	n := rng.Intn(25) // 24 までのランダムな長さ
 	runes := make([]rune, n)
 	for i := 0; i < (n+1)/2; i++ {
-		r := rune(rng.Intn(0x1000)) // '\u0999' までのランダムなルーン
+		//r := rune(rng.Intn(0x1000)) // '\u0999' までのランダムなルーン
+		r := src[rng.Intn(len(src))] // ランダムで文字を採取
 		runes[i] = r
 		runes[n-1-i] = r
 	}
